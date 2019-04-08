@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.raycom.modules.agr.agrProduction.AgrProductionDao">
+
+	<!-- 查询供应商药品字典列表 -->
+	<select id="vendorDrugDictList" resultType="rdata" parameterType="page">
+		SELECT	rownum									"num",
+				da.countrycode                        	"countrycode",
+			    da.countryname                          "countryname",
+			    da.tea                                  "tea",
+			    da.beans								"beans",
+			    da.nuts									"nuts",
+			    da.coffee								"coffee"
+          FROM	tb_ecc_agr_production da
+         WHERE	1=1
+	</select>
+	
+	<!-- 根据药品ID查询药品详细信息 -->
+	<select id="getVendorDrugDict" resultType="rdata" parameterType="rdata">
+		SELECT	da.vendor_drug_dict_id							"vendorDrugDictId",
+				da.vendor_drug_code                             "vendorDrugCode",
+			    da.drug_name                                    "drugName",
+			    da.alias_name									"aliasName",
+			    da.pinyin_code									"pinyinCode",
+			    da.drug_form									"drugForm",
+			    da.drug_class									"drugClass",
+			    da.package_spec                                 "packageSpec",
+			    da.package_unit                               	"packageUnit",
+			    da.mini_unit                                  	"miniUnit",
+			    da.mini_spec									"miniSpec",
+			    da.package_ratio                                "packageRatio",
+			    da.purchase_unit								"purchaseUnit",
+			    da.purchase_ratio								"purchaseRatio",
+			    da.firm_name									"firmName",
+			    da.purchase_price                               "purchasePrice",
+			    da.use_flag                                   	"useFlag",
+			    da.zero_diff									"zeroDiff",
+			    da.rt_price										"rtPrice",
+			    (
+			    SELECT	vendor_name
+			    FROM	tb_o_vendor_dict vd
+			    WHERE	da.vendor_id = vd.vendor_id )			"vendorName"
+          FROM	tb_o_vendor_drug_dict da
+         WHERE	da.vendor_drug_dict_id =trim(#{vendorDrugDictId})
+	</select>
+	
+	<!-- 根据输入的药品唯一编码进行校验 -->
+	<select id="inspectDrugDict" resultType="rdata" parameterType="rdata">
+		SELECT	da.vendor_drug_dict_id                           "vendorDrugDictId"
+          FROM	tb_o_vendor_drug_dict da
+         WHERE	da.vendor_drug_code =trim(#{vendorDrugCode})
+         AND	da.use_flag='Y'
+	</select>
+	
+	<!-- 修改供应商药品信息 -->
+	<update id="updateDrugDict" parameterType="rdata">
+		UPDATE tb_o_vendor_drug_dict 
+		   SET  drug_name                                    	=trim(#{drugName}),
+			    alias_name								     	=trim(#{aliasName}),
+			    pinyin_code									 	=trim(#{pinyinCode}),
+			    drug_form									 	=trim(#{drugForm}),
+			    drug_class									 	=trim(#{drugClass}),
+			    package_spec                                 	=trim(#{packageSpec}),
+			    package_unit                               		=trim(#{packageUnit}),
+			    mini_unit                                  		=trim(#{miniUnit}),
+			    mini_spec										=trim(#{miniSpec}),
+			    package_ratio                                 	=trim(#{packageRatio}),
+			    purchase_unit									=trim(#{purchaseUnit}),
+			    purchase_ratio									=trim(#{purchaseRatio}),
+			    rt_price		                               	=trim(#{rtPrice}),
+			    firm_name										=trim(#{firmName}),
+			    use_flag									 	='Y',
+			    zero_diff									 	=trim(#{zeroDiff}),
+			    purchase_price									=trim(#{purchasePrice})
+		 WHERE vendor_drug_dict_id =trim(#{vendorDrugDictId})
+	</update>
+	
+	<!-- 修改Excel导入的数据 -->
+	<select id="updateExcelDrugDict" resultType="rdata" parameterType="rdata">
+		UPDATE tb_o_vendor_drug_dict 
+		   SET  drug_name                                    	=trim(#{drugName}),
+			    alias_name								     	=trim(#{aliasName}),
+			    pinyin_code									 	=trim(#{pinyinCode}),
+			    drug_form									 	=trim(#{drugForm}),
+			    drug_class									 	=trim(#{drugClass}),
+			    package_spec                                 	=trim(#{packageSpec}),
+			    package_unit                               		=trim(#{packageUnit}),
+			    mini_unit                                  		=trim(#{miniUnit}),
+			    mini_spec										=trim(#{miniSpec}),
+			    package_ratio                                 	=trim(#{packageRatio}),
+			    purchase_unit									=trim(#{purchaseUnit}),
+			    purchase_ratio									=trim(#{purchaseRatio}),
+			    rt_price		                               	=trim(#{rtPrice}),
+			    firm_name										=trim(#{firmName}),
+			    use_flag									 	='Y',
+			    zero_diff									 	=trim(#{zeroDiff}),
+			    purchase_price									=trim(#{purchasePrice})
+		 WHERE vendor_drug_code =trim(#{vendorDrugCode})
+	</select>
+	
+	<!-- 删除供应商药品信息 -->
+	<update id="deleteDrugDict" parameterType="rdata">
+		UPDATE tb_o_vendor_drug_dict  da
+		   SET  da.use_flag='N'
+		 WHERE  da.vendor_drug_dict_id =trim(#{vendorDrugDictId})
+	</update>
+	
+	<!-- 查询出当前供应商的Id -->
+	<select id="getVendorCode" parameterType="rdata" resultType="rdata">
+		SELECT org_id "vendorId" 
+		FROM com_user cu 
+		WHERE cu.user_id = #{currentUser}
+	</select>
+	
+	<!-- 向供应商药品字典表中插入数据 -->
+	<insert id="addDrugDict"  parameterType="rdata">
+		INSERT INTO	  tb_o_vendor_drug_dict  da
+		            (
+		           	  da.vendor_drug_dict_id,
+		           	  da.vendor_drug_code,              
+		              da.drug_name,                        
+		              da.alias_name,					
+		              da.pinyin_code,					
+		              da.drug_form,					
+		              da.drug_class,					
+		              da.package_spec,                        
+		              da.package_unit,                        
+		              da.mini_unit,
+		              da.mini_spec,                        
+		              da.package_ratio,  							
+		   			  da.purchase_unit,							
+		    		  da.purchase_ratio,                     
+		              da.firm_name,                        
+		              da.purchase_price,                        											
+		              da.zero_diff,
+		   			  da.rt_price,
+		              da.vendor_id,
+		              da.create_by,
+		              da.create_date						
+          		  	)
+	          VALUES
+	        		(
+        		   	  seq_o_vendor_drug_dict.nextval,
+				      trim(#{vendorDrugCode}),
+					  trim(#{drugName}),
+					  trim(#{aliasName}),
+					  trim(#{pinyinCode}),
+					  trim(#{drugForm}),
+					  trim(#{drugClass}),
+					  trim(#{packageSpec}),
+					  trim(#{packageUnit}),
+					  trim(#{miniUnit}),
+					  trim(#{miniSpec}),
+					  trim(#{packageRatio}),
+		    		  trim(#{purchaseUnit}),
+		    		  trim(#{purchaseRatio}),
+					  trim(#{firmName}),
+					  trim(#{purchasePrice}),
+					  trim(#{zeroDiff}),
+		   			  trim(#{rtPrice}),
+					  trim(#{vendorId}),
+					  #{currentUser},
+					  sysdate
+		            )
+	</insert>
+	
+	<!-- 根据药品id将刚才修改或删除的药品信息找到 -->
+	<select id="selectVendorDrugDict" resultType="rdata" parameterType="rdata">
+		SELECT	da.vendor_drug_dict_id                          "vendorDrugDictId",
+			    da.vendor_drug_code                             "vendorDrugCode",
+			    da.drug_name                                    "drugName",
+			    da.alias_name									"aliasName",
+			    da.pinyin_code									"pinyinCode",
+			    da.drug_class									"drugClass",
+			    da.drug_form									"drugForm",
+			    da.package_spec                                 "packageSpec",
+			    da.package_unit                                	"packageUnit",
+			    da.mini_unit                                   	"miniUnit",
+			    da.mini_spec									"miniSpec",
+			    da.package_ratio                                "packageRatio",
+			    da.purchase_unit								"purchaseUnit",
+			    da.purchase_ratio								"purchaseRatio",
+			    da.firm_name                                	"firmName",
+			    da.purchase_price                               "purchasePrice",
+			    da.vendor_id									"vendorId",
+			    da.zero_diff									"zeroDiff",
+			    da.rt_price										"rtPrice",
+			    da.use_flag										"useFlag"
+          FROM	tb_o_vendor_drug_dict da
+         WHERE	da.vendor_drug_dict_id =trim(#{vendorDrugDictId})
+	</select>
+	
+	<!-- 根据药品编码找到刚才Excel修改的数据 -->
+	<select id="selectExcelVendorDrugDict" resultType="rdata" parameterType="rdata">
+		SELECT	da.vendor_drug_dict_id                          "vendorDrugDictId",
+			    da.vendor_drug_code                             "vendorDrugCode",
+			    da.drug_name                                    "drugName",
+			    da.alias_name									"aliasName",
+			    da.pinyin_code									"pinyinCode",
+			    da.drug_class									"drugClass",
+			    da.drug_form									"drugForm",
+			    da.package_spec                                 "packageSpec",
+			    da.package_unit                                	"packageUnit",
+			    da.mini_unit                                   	"miniUnit",
+			    da.mini_spec									"miniSpec",
+			    da.package_ratio                                "packageRatio",
+			    da.purchase_unit								"purchaseUnit",
+			    da.purchase_ratio								"purchaseRatio",
+			    da.firm_name                                	"firmName",
+			    da.purchase_price                               "purchasePrice",
+			    da.vendor_id									"vendorId",
+			    da.zero_diff									"zeroDiff",
+			    da.rt_price										"rtPrice",
+			    da.use_flag										"useFlag"
+          FROM	tb_o_vendor_drug_dict da
+         WHERE	da.vendor_drug_code =trim(#{vendorDrugCode})
+	</select>
+	
+	<!-- 根据药品编码将刚才新增的药品信息找到 -->
+	<select id="findDrugById" resultType="rdata" parameterType="page">
+		SELECT	da.vendor_drug_dict_id                          "vendorDrugDictId",
+			    da.vendor_drug_code                             "vendorDrugCode",
+			    da.drug_name                                    "drugName",
+			    da.alias_name									"aliasName",
+			    da.pinyin_code									"pinyinCode",
+			    da.drug_class									"drugClass",
+			    da.drug_form									"drugForm",
+			    da.package_spec                                 "packageSpec",
+			    da.package_unit                                	"packageUnit",
+			    da.mini_unit                                   	"miniUnit",
+			    da.mini_spec									"miniSpec",
+			    da.package_ratio                                "packageRatio",
+			    da.purchase_unit								"purchaseUnit",
+			    da.purchase_ratio								"purchaseRatio",
+			    da.firm_name                                	"firmName",
+			    da.purchase_price                               "purchasePrice",
+			    da.vendor_id									"vendorId",
+			    da.zero_diff									"zeroDiff",
+			    da.rt_price										"rtPrice",
+			    da.use_flag										"useFlag"
+          FROM	tb_o_vendor_drug_dict da
+         WHERE	da.vendor_drug_code =trim(#{vendorDrugCode})
+	</select>
+	
+	<!-- 导出供应商药品Excle -->
+	<select id="vendorDrugDictListExcle" resultType="rdata" parameterType="rdata">
+		SELECT	rownum											"num",
+			  	da.vendor_drug_code                             "vendorDrugCode",
+			    da.drug_name                                    "drugName",
+			    da.alias_name									"aliasName",
+			    da.pinyin_code									"pinyinCode",
+			    da.drug_class									"drugClass",
+			    da.drug_form									"drugForm",
+			    da.package_spec                                 "packageSpec",
+			    da.package_unit                               	"packageUnit",
+			    da.mini_unit                                  	"miniUnit",
+			    da.mini_spec									"miniSpec",
+			    da.package_ratio                                "packageRatio",
+			    da.purchase_unit								"purchaseUnit",
+			    da.purchase_ratio								"purchaseRatio",
+			    da.firm_name									"firmName",
+			    da.purchase_price                               "purchasePrice",
+			    da.use_flag                                   	"useFlag",
+			    da.zero_diff									"zeroDiff",
+			    da.rt_price										"rtPrice",
+			    (
+			    select	vendor_name
+			    from	tb_o_vendor o
+			    where	da.vendor_id = o.vendor_id )			"vendorName"
+        FROM	tb_o_vendor_drug_dict da
+        WHERE	1=1
+        AND		da.use_flag = 'Y'
+          	<if test="vendorDrugCode != null and vendorDrugCode != ''">
+			 AND da.vendor_drug_code like   '%' || trim(#{vendorDrugCode}) || '%'
+			</if>
+			<if test="drugName != null and drugName != ''">
+			 AND da.drug_name	 like  '%' || trim(#{drugName}) || '%'
+			</if>
+			<if test="aliasName != null and aliasName != ''">
+			 AND da.alias_name like  '%' || trim(#{aliasName}) || '%'
+			</if>
+			<if test="firmName != null and firmName != ''">
+			 AND  da.firm_name	 like  '%' || trim(#{firmName}) || '%'
+			</if>
+	</select>
+	
+	<!-- 插入供应商字典 -->
+	<insert id="inserTo" parameterType="rdata" >
+	INSERT INTO tb_o_vendor_drug_dict
+			   (
+				vendor_drug_dict_id,
+				vendor_drug_code,
+				drug_name,
+				alias_name,
+				pinyin_code,
+				mini_unit,
+				mini_spec,
+				package_unit,
+				package_spec,
+				package_ratio,
+				purchase_unit,
+				purchase_ratio,
+				firm_name,
+				drug_class,
+				drug_form,
+				vendor_id,
+				purchase_price,
+				rt_price,
+				zero_diff,
+				use_flag,
+				create_by,
+				create_date,
+				update_by,
+				update_date
+			)VALUES(
+				seq_o_vendor_drug_dict.nextval,
+				trim(#{vendorDrugCode}),
+				trim(#{drugName}),
+				trim(#{aliasName}),
+				trim(#{pinyinCode}),
+				trim(#{miniUnit}),
+				trim(#{miniSpec}),
+				trim(#{packageUnit}),
+				trim(#{packageSpec}),
+				trim(#{packageRatio}),
+				trim(#{purchaseUnit}),
+				trim(#{purchaseRatio}),
+				trim(#{firmName}),
+				trim(#{drugClass}),
+				trim(#{drugForm}),
+				trim(#{vendorId}),
+				trim(#{purchasePrice}),
+				trim(#{rtPrice}),
+				trim(#{zeroDiff}),
+				'Y',				
+				trim(#{currentUser}),
+				sysdate,
+				trim(#{currentUser}),
+				sysdate
+			)
+	</insert>
+	
+</mapper>
