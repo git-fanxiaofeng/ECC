@@ -1,4 +1,4 @@
-package io.raycom.modules.agr.agrProduction;
+package io.raycom.modules.ecologicalSupply.suitableNumber;
 
 
 import io.raycom.core.collection.RData;
@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 农产品生产量
+ * 生态供给量
  * @author fxf
  *
  */
 @MyBatisDao
-public interface AgrProductionDao{
+public interface SuitableNumberDao{
 	
 	ArrayList<RData> getFirmInfo();
 

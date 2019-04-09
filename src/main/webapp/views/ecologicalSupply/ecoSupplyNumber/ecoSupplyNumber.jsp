@@ -70,7 +70,7 @@
 		}else{
 			rayDialogConfirm("确定要上传吗？",function(){
 				$.ajax({
-					url:ctx+"/agrProduction/import",
+					url:ctx+"/ecologicalSupply/import",
 					type:"POST",
 					data:
 					{
@@ -81,7 +81,7 @@
 							rayDialog(data.errorMsg+"或填入信息有误！");
 						}else{
 							rayDialog("导入成功！",function(){
-								actCancel($('#form'), ctx + "/agrProduction");												
+								actCancel($('#form'), ctx + "/ecologicalSupply");												
 							});
 						}
 					} 
@@ -104,7 +104,7 @@
 					 <div class="no-move"></div>
 					</div>
 					<div class="box-content">
-							<form class="form-horizontal" id="form" action="/agrProduction/agrProductionList" method="post">
+							<form class="form-horizontal" id="form" action="/ecologicalSupply/agrProductionList" method="post">
 								<div class="form-group">
 									<label class="col-sm-2 control-label">国家编码</label>
 									<div class="col-sm-2">
@@ -153,23 +153,7 @@
 										<th data-column="num">序号</th>
 										<th data-column="countryCode">国家编码</th>
 										<th data-column="countryName">国家名称</th>
-										<th data-column="tea">茶</th>
-										<th data-column="beans">豆类</th>
-										<th data-column="nuts">坚果类</th>
-										<th data-column="coffee">咖啡</th>
-										<th data-column="cocoa">可可 </th>
-										<th data-column="hemp">麻类</th>
-										<th data-column="cotton">棉花</th>
-										<th data-column="otherGrains">其他谷物</th>
-										<th data-column="vegetables">蔬果</th>
-										<th data-column="potato">薯类</th>
-										<th data-column="rice">水稻</th>
-										<th data-column="sugar">糖料作物</th>
-										<th data-column="wheat">小麦</th>
-										<th data-column="tobacco">烟草</th>
-										<th data-column="corn">玉米</th>
-										<th data-column="oil">油料作物</th>
-										<th data-column="palm">棕榈</th>
+										<th data-column="ecoSupplyNumber">生态供给量</th>
 										<!-- <th data-column="op"data-method="[
 										{targets:-1,title:'查看',fncName:'fncDetail',params:'vendorDrugDictId'},
 										{targets:-1,title:'删除',fncName:'fncDelete',params:'vendorDrugDictId',icon:'del'}

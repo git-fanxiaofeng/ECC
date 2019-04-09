@@ -1,4 +1,4 @@
-package io.raycom.modules.agr.agrProduction;
+package io.raycom.modules.ecologicalSupply.onlineNumber;
 
 
 import io.raycom.core.collection.RData;
@@ -14,23 +14,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * 农产品生产量
+ * 生态供给
  * @author fxf
  *
  */
 @Service
 @Transactional(readOnly=true)
-public class AgrProductionService extends BaseService{
+public class OnlineNumberService extends BaseService{
 	
 	@Autowired
-	private AgrProductionDao agrProductionDao;
+	private OnlineNumberDao ecologicalSupplyDao;
 	
 	/**
 	 * 查询供应商药品字典数据
 	 * @param page
 	 */
 	public void vendorDrugDictList(Page<RData> page) {
-		page.setData(agrProductionDao.vendorDrugDictList(page));
+		page.setData(ecologicalSupplyDao.vendorDrugDictList(page));
 	}
 	
 	/**
@@ -39,14 +39,14 @@ public class AgrProductionService extends BaseService{
 	 * @return
 	 */
 	public RData getVendorDrugDict(RData rdata){
-		return agrProductionDao.getVendorDrugDict(rdata);
+		return ecologicalSupplyDao.getVendorDrugDict(rdata);
 	}
 	
 	
 	//导出药品Excle
 	public RMultiData supplierdrugDictListExcle(RData rdata){
 		RMultiData rMultiData = new RMultiData();
-		ArrayList<RData> list =agrProductionDao.vendorDrugDictListExcle(rdata);
+		ArrayList<RData> list =ecologicalSupplyDao.vendorDrugDictListExcle(rdata);
 		for(int i=0;i<list.size();i++){
 			rMultiData.addRData(list.get(i));
 		}
@@ -64,35 +64,19 @@ public class AgrProductionService extends BaseService{
 			RData purchaseData = mdata.getRData(i);
 			wdata.set("countryCode", purchaseData.getString("countryCode"));
 			wdata.set("countryName", purchaseData.getString("countryName"));
-			wdata.set("tea", purchaseData.getString("tea"));
-			wdata.set("beans", purchaseData.getString("beans"));
-			wdata.set("nuts", purchaseData.getString("nuts"));
-			wdata.set("coffee", purchaseData.getString("coffee"));
-			wdata.set("cocoa", purchaseData.getString("cocoa"));
-			wdata.set("hemp", purchaseData.getString("hemp"));
-			wdata.set("cotton", purchaseData.getString("cotton"));
-			wdata.set("othergrains", purchaseData.getString("othergrains"));
-			wdata.set("vegetables", purchaseData.getString("vegetables"));
-			wdata.set("rice", purchaseData.getString("rice"));
-			wdata.set("potato",purchaseData.getString("potato"));
-			wdata.set("sugar",purchaseData.getString("sugar"));
-			wdata.set("wheat",purchaseData.getString("wheat"));
-			wdata.set("tobacco", purchaseData.getString("tobacco"));
-			wdata.set("corn", purchaseData.getString("corn"));
-			wdata.set("oil", purchaseData.getString("oil"));
-			wdata.set("palm", purchaseData.getString("palm"));
-			agrProductionDao.updateExcelagrPro(wdata);
+			wdata.set("ecoSupplyNumber", purchaseData.getString("ecoSupplyNumber"));
+			ecologicalSupplyDao.updateExcelagrPro(wdata);
 			//RData rData = selectExcelVendorDrugDict(wdata);
 		}
 		return rdata;
 	}
 	private RData selectExcelVendorDrugDict(RData wdata) {
 		
-		return agrProductionDao.selectExcelVendorDrugDict(wdata);
+		return ecologicalSupplyDao.selectExcelVendorDrugDict(wdata);
 	}
 
 	public void inserTo(RData data) {
-		agrProductionDao.inserTo(data);
+		ecologicalSupplyDao.inserTo(data);
 	}
 
 

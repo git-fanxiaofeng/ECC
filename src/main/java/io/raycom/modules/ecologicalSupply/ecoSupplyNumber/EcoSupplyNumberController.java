@@ -1,4 +1,4 @@
-package io.raycom.modules.agr.agrProduction;
+package io.raycom.modules.ecologicalSupply.ecoSupplyNumber;
 
 import io.raycom.core.collection.RData;
 import io.raycom.core.collection.RMultiData;
@@ -22,34 +22,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * 农产品生产量
+ * 生态供给
  * @author fxf
  *
  */
 @Controller
-@RequestMapping(value="${adminPath}/agrProduction")
-public class AgrProductionController extends BaseController{
+@RequestMapping(value="${adminPath}/ecoSupplyNumber")
+public class EcoSupplyNumberController extends BaseController{
 	
 	@Autowired
-	private AgrProductionService agrProductionService;
+	private EcoSupplyNumberService ecologicalSupplyService;
 	
 	/**
-	 * 进入农产品生产量列表页面
+	 * 进入生态供给量页面
 	 * @return
 	 */
 	@RequestMapping(value={"list",""})
 	public String list(){
-		return "agr/agrProduction/agrProductionList";
+		return "ecologicalSupply/ecoSupplyNumber/ecoSupplyNumber";
 	}
 	
 	/**
-	 * 查询农产品生产量列表
+	 * 查询生态供给量列表
 	 * @return
 	 */
-	@RequestMapping(value="agrProductionList")
+	@RequestMapping(value="ecoSupplyNumber")
 	@ResponseBody
 	public Page<RData> vendorDrugDictList(){
-		agrProductionService.vendorDrugDictList(page);
+		ecologicalSupplyService.vendorDrugDictList(page);
 		return page;
 	}
 	
@@ -61,7 +61,7 @@ public class AgrProductionController extends BaseController{
 	 */
 	@RequestMapping(value = "querySupplierDrugDictExcel")
 	public String importExcel(Model model){
-		RMultiData result =agrProductionService.supplierdrugDictListExcle(rdata);
+		RMultiData result =ecologicalSupplyService.supplierdrugDictListExcle(rdata);
 		ExcelExportor exportor = new ExcelExportor("SupplierDrugDict.xls", result,model);
 		exportor.addColumn("num", "序号");
 		exportor.addColumn("vendorDrugCode", "药品编码");
@@ -110,47 +110,15 @@ public class AgrProductionController extends BaseController{
             		cell1=sheet.getCell(i,j);
             		list.add(cell1.getContents());
             	}
-            	AgrProductionBean sBean = new AgrProductionBean();
+            	EcoSupplyNumberBean sBean = new EcoSupplyNumberBean();
             	sBean.setCountryCode(list.get(0));
             	sBean.setCountryName(list.get(1));
-            	sBean.setTea(list.get(2));
-            	sBean.setBeans(list.get(3));
-            	sBean.setNuts(list.get(4));
-            	sBean.setCoffee(list.get(5));
-            	sBean.setCocoa(list.get(6));
-            	sBean.setHemp(list.get(7));
-            	sBean.setCotton(list.get(8));
-            	sBean.setOtherGrains(list.get(9));
-            	sBean.setVegetables(list.get(10));
-            	sBean.setPotato(list.get(11));
-            	sBean.setRice(list.get(12));
-            	sBean.setSugar(list.get(13));
-            	sBean.setWheat(list.get(14));
-            	sBean.setTobacco(list.get(15));
-            	sBean.setCorn(list.get(16));
-            	sBean.setOil(list.get(17));
-            	sBean.setPalm(list.get(18));
+            	sBean.setEcoSupplyNumber(list.get(2));
             	String result = validateBeanWithError(sBean);
         		if("".equals(result)){//验证通过
             		mdata.add("countryCode", list.get(0));
             		mdata.add("countryName", list.get(1));
-            		mdata.add("tea", list.get(2));
-            		mdata.add("beans", list.get(3));
-            		mdata.add("nuts", list.get(4));
-            		mdata.add("coffee", list.get(5));
-            		mdata.add("cocoa", list.get(6));
-            		mdata.add("hemp", list.get(7));
-            		mdata.add("cotton", list.get(8));
-            		mdata.add("otherGrains", list.get(9));
-            		mdata.add("vegetables", list.get(10));
-            		mdata.add("rice", list.get(11));
-            		mdata.add("potato", list.get(12));
-            		mdata.add("sugar", list.get(13));
-            		mdata.add("wheat", list.get(14));
-            		mdata.add("tobacco", list.get(15));
-            		mdata.add("corn", list.get(16));
-            		mdata.add("oil", list.get(17));
-            		mdata.add("palm", list.get(18));
+            		mdata.add("ecoSupplyNumber", list.get(2));
         		}else{
         			rdata.set("errorMsg", result);
         			rdata.set("hasError", "Y");
@@ -158,7 +126,7 @@ public class AgrProductionController extends BaseController{
         			//result值为错误信息，即bean中 message定义的信息
         		}	
             }
-            rdata = agrProductionService.save(rdata,mdata);
+            rdata = ecologicalSupplyService.save(rdata,mdata);
             book.close(); 
         }
         catch(Exception e)  { 

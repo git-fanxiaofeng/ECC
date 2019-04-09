@@ -3,150 +3,162 @@ package io.raycom.modules.agr.agrProduction;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
- * 供应商药品字典Bean
- * @author guoxugang 
- * @date 2016年12月1日
- * @version 1.0.0
+ * 农产品生产量bean
+ * @author fxf
+ *
  */
 public class AgrProductionBean {
 	
-	@NotEmpty(message = "供应商药品编码不能为空") 
-	private String vendorDrugCode;
-	@NotEmpty(message = "药品名称不能为空") 
-	private String drugName;
-	//@NotEmpty(message = "药品通用名不能为空") 
-	private String aliasName;
-	//@NotEmpty(message = "助记符不能为空") 
-	private String pinyinCode;
-	@NotEmpty(message = "最小单位不能为空") 
-	private String miniUnit;
-	@NotEmpty(message = "最小规格不能为空")
-	private String miniSpec;
-	@NotEmpty(message = "包装单位不能为空") 
-	private String packageUnit;
-	@NotEmpty(message = "包装规格不能为空") 
-	private String packageSpec;
-	@NotEmpty(message = "包装单位与最小单位换算比不能为空") 
-	private String packageRatio;
-	@NotEmpty(message="采购单位不能为空")
-	private String purchaseUnit;
-	@NotEmpty(message="采购单位与最小单位转换系数不能为空")
-	private String purchaseRatio;
-	@NotEmpty(message = "生产厂家不能为空") 
-	private String firmName;
-	@NotEmpty(message = "药品类别不能为空") 
-	private String drugClass;
-	@NotEmpty(message = "药品剂型不能为空") 
-	private String drugForm;
-	@NotEmpty(message = "供应价不能为空") 
-	private String purchasePrice;
-	//@NotEmpty(message = "零售价不能为空") 
-	private String rtPrice;
-	@NotEmpty(message = "零差标志不能为空") 
-	private String zeroDiff;
-	
-	
-	public String getVendorDrugCode() {
-		return vendorDrugCode;
+	@NotEmpty(message = "国家代码不能为空") 
+	private String countryCode;
+	@NotEmpty(message = "国家名称不能为空") 
+	private String countryName;
+	@NotEmpty(message = "茶生产量不能为空") 
+	private String tea;
+	@NotEmpty(message = "豆类生产量不能为空") 
+	private String beans;
+	@NotEmpty(message = "坚果生产量不能为空") 
+	private String nuts;
+	@NotEmpty(message = "咖啡生产量不能为空")
+	private String coffee;
+	@NotEmpty(message = "可可生产量不能为空") 
+	private String cocoa;
+	@NotEmpty(message = "麻类生产量不能为空") 
+	private String hemp;
+	@NotEmpty(message = "棉花生产量不能为空") 
+	private String cotton;
+	@NotEmpty(message = "其他谷物生产量不能为空") 
+	private String otherGrains;
+	@NotEmpty(message = "蔬果生产量不能为空") 
+	private String vegetables;
+	@NotEmpty(message = "水稻生产量不能为空") 
+	private String rice;
+	@NotEmpty(message = "薯类生产量不能为空") 
+	private String potato;
+	@NotEmpty(message = "糖料作物生产量不能为空") 
+	private String sugar;
+	@NotEmpty(message = "小麦生产量不能为空") 
+	private String wheat;
+	@NotEmpty(message = "烟草生产量不能为空") 
+	private String tobacco;
+	@NotEmpty(message = "玉米生产量不能为空") 
+	private String corn;
+	@NotEmpty(message = "油料作物生产量不能为空") 
+	private String oil;
+	@NotEmpty(message = "棕榈作物生产量不能为空") 
+	private String palm;
+	public String getTea() {
+		return tea;
 	}
-	public void setVendorDrugCode(String vendorDrugCode) {
-		this.vendorDrugCode = vendorDrugCode;
+	public void setTea(String tea) {
+		this.tea = tea;
 	}
-	public String getDrugName() {
-		return drugName;
+	public String getBeans() {
+		return beans;
 	}
-	public void setDrugName(String drugName) {
-		this.drugName = drugName;
+	public void setBeans(String beans) {
+		this.beans = beans;
 	}
-	public String getAliasName() {
-		return aliasName;
+	public String getNuts() {
+		return nuts;
 	}
-	public void setAliasName(String aliasName) {
-		this.aliasName = aliasName;
+	public void setNuts(String nuts) {
+		this.nuts = nuts;
 	}
-	public String getPinyinCode() {
-		return pinyinCode;
+	public String getCoffee() {
+		return coffee;
 	}
-	public void setPinyinCode(String pinyinCode) {
-		this.pinyinCode = pinyinCode;
+	public void setCoffee(String coffee) {
+		this.coffee = coffee;
 	}
-	public String getMiniUnit() {
-		return miniUnit;
+	public String getCocoa() {
+		return cocoa;
 	}
-	public void setMiniUnit(String miniUnit) {
-		this.miniUnit = miniUnit;
+	public void setCocoa(String cocoa) {
+		this.cocoa = cocoa;
 	}
-	public String getMiniSpec() {
-		return miniSpec;
+	public String getHemp() {
+		return hemp;
 	}
-	public void setMiniSpec(String miniSpec) {
-		this.miniSpec = miniSpec;
+	public void setHemp(String hemp) {
+		this.hemp = hemp;
 	}
-	public String getPackageUnit() {
-		return packageUnit;
+	public String getCotton() {
+		return cotton;
 	}
-	public void setPackageUnit(String packageUnit) {
-		this.packageUnit = packageUnit;
+	public void setCotton(String cotton) {
+		this.cotton = cotton;
 	}
-	public String getPackageSpec() {
-		return packageSpec;
+	public String getCountryCode() {
+		return countryCode;
 	}
-	public void setPackageSpec(String packageSpec) {
-		this.packageSpec = packageSpec;
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
 	}
-	public String getPackageRatio() {
-		return packageRatio;
+	public String getCountryName() {
+		return countryName;
 	}
-	public void setPackageRatio(String packageRatio) {
-		this.packageRatio = packageRatio;
+	public void setCountryName(String countryName) {
+		this.countryName = countryName;
 	}
-	public String getPurchaseUnit() {
-		return purchaseUnit;
+	public String getOtherGrains() {
+		return otherGrains;
 	}
-	public void setPurchaseUnit(String purchaseUnit) {
-		this.purchaseUnit = purchaseUnit;
+	public void setOtherGrains(String otherGrains) {
+		this.otherGrains = otherGrains;
 	}
-	public String getPurchaseRatio() {
-		return purchaseRatio;
+	public String getVegetables() {
+		return vegetables;
 	}
-	public void setPurchaseRatio(String purchaseRatio) {
-		this.purchaseRatio = purchaseRatio;
+	public void setVegetables(String vegetables) {
+		this.vegetables = vegetables;
 	}
-	public String getFirmName() {
-		return firmName;
+	public String getRice() {
+		return rice;
 	}
-	public void setFirmName(String firmName) {
-		this.firmName = firmName;
+	public void setRice(String rice) {
+		this.rice = rice;
 	}
-	public String getDrugClass() {
-		return drugClass;
+	public String getPotato() {
+		return potato;
 	}
-	public void setDrugClass(String drugClass) {
-		this.drugClass = drugClass;
+	public void setPotato(String potato) {
+		this.potato = potato;
 	}
-	public String getDrugForm() {
-		return drugForm;
+	public String getSugar() {
+		return sugar;
 	}
-	public void setDrugForm(String drugForm) {
-		this.drugForm = drugForm;
+	public void setSugar(String sugar) {
+		this.sugar = sugar;
 	}
-	public String getPurchasePrice() {
-		return purchasePrice;
+	public String getWheat() {
+		return wheat;
 	}
-	public void setPurchasePrice(String purchasePrice) {
-		this.purchasePrice = purchasePrice;
+	public void setWheat(String wheat) {
+		this.wheat = wheat;
 	}
-	public String getRtPrice() {
-		return rtPrice;
+	public String getTobacco() {
+		return tobacco;
 	}
-	public void setRtPrice(String rtPrice) {
-		this.rtPrice = rtPrice;
+	public void setTobacco(String tobacco) {
+		this.tobacco = tobacco;
 	}
-	public String getZeroDiff() {
-		return zeroDiff;
+	public String getCorn() {
+		return corn;
 	}
-	public void setZeroDiff(String zeroDiff) {
-		this.zeroDiff = zeroDiff;
+	public void setCorn(String corn) {
+		this.corn = corn;
 	}
-		
+	public String getOil() {
+		return oil;
+	}
+	public void setOil(String oil) {
+		this.oil = oil;
+	}
+	public String getPalm() {
+		return palm;
+	}
+	public void setPalm(String palm) {
+		this.palm = palm;
+	}
 }
