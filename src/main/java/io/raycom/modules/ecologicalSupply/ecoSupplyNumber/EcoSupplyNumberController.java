@@ -46,7 +46,7 @@ public class EcoSupplyNumberController extends BaseController{
 	 * 查询生态供给量列表
 	 * @return
 	 */
-	@RequestMapping(value="ecoSupplyNumber")
+	@RequestMapping(value="ecoSupplyNumberList")
 	@ResponseBody
 	public Page<RData> vendorDrugDictList(){
 		ecologicalSupplyService.vendorDrugDictList(page);

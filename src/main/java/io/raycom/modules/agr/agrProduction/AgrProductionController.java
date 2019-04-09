@@ -43,6 +43,17 @@ public class AgrProductionController extends BaseController{
 	}
 	
 	/**
+	 * 进入农产品生产量列表页面
+	 * @return
+	 */
+	@RequestMapping(value="agrWaterCon")
+	public String agrWaterCon(){
+		return "agr/agrProduction/agrWaterConList";
+	}
+	
+	
+	
+	/**
 	 * 查询农产品生产量列表
 	 * @return
 	 */

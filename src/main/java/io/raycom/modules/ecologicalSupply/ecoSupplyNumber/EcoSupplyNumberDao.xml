@@ -110,7 +110,7 @@
 	
 	<!-- 插入农产品生产量表 -->
 	<insert id="updateExcelagrPro" parameterType="rdata">
-		INSERT INTO tb_ecc_agr_production
+		INSERT INTO tb_ecc_ecosupply
 				(
 				countryCode,
 				countryName,

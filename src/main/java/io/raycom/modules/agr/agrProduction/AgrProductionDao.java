@@ -48,6 +48,8 @@ public interface AgrProductionDao{
 
 	void updateExcelagrPro(RData wdata);
 
+	List<RData> agrWaterConList(Page<RData> page);
+
 
 
 	

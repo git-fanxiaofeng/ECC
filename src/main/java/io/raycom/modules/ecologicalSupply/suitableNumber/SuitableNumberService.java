@@ -9,6 +9,7 @@ import io.raycom.web.service.BaseService;
 import java.util.ArrayList;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,30 +24,21 @@ import org.springframework.transaction.annotation.Transactional;
 public class SuitableNumberService extends BaseService{
 	
 	@Autowired
-	private SuitableNumberDao ecologicalSupplyDao;
+	private SuitableNumberDao suitableNumberDao;
 	
 	/**
 	 * 查询供应商药品字典数据
 	 * @param page
 	 */
 	public void vendorDrugDictList(Page<RData> page) {
-		page.setData(ecologicalSupplyDao.vendorDrugDictList(page));
-	}
-	
-	/**
-	 * 根据药品ID查询药品详细信息
-	 * @param rdata
-	 * @return
-	 */
-	public RData getVendorDrugDict(RData rdata){
-		return ecologicalSupplyDao.getVendorDrugDict(rdata);
+		page.setData(suitableNumberDao.vendorDrugDictList(page));
 	}
 	
 	
-	//导出药品Excle
-	public RMultiData supplierdrugDictListExcle(RData rdata){
+	//导出Excle
+	public RMultiData querysuitableNumberExcel(RData rdata){
 		RMultiData rMultiData = new RMultiData();
-		ArrayList<RData> list =ecologicalSupplyDao.vendorDrugDictListExcle(rdata);
+		ArrayList<RData> list =suitableNumberDao.querysuitableNumberExcel(rdata);
 		for(int i=0;i<list.size();i++){
 			rMultiData.addRData(list.get(i));
 		}
@@ -65,18 +57,30 @@ public class SuitableNumberService extends BaseService{
 			wdata.set("countryCode", purchaseData.getString("countryCode"));
 			wdata.set("countryName", purchaseData.getString("countryName"));
 			wdata.set("ecoSupplyNumber", purchaseData.getString("ecoSupplyNumber"));
-			ecologicalSupplyDao.updateExcelagrPro(wdata);
+			suitableNumberDao.updateExcelagrPro(wdata);
 			//RData rData = selectExcelVendorDrugDict(wdata);
 		}
 		return rdata;
 	}
 	private RData selectExcelVendorDrugDict(RData wdata) {
 		
-		return ecologicalSupplyDao.selectExcelVendorDrugDict(wdata);
+		return suitableNumberDao.selectExcelVendorDrugDict(wdata);
 	}
 
 	public void inserTo(RData data) {
-		ecologicalSupplyDao.inserTo(data);
+		suitableNumberDao.inserTo(data);
+	}
+
+	public void saveSuitablePara(RData rdata) {
+		suitableNumberDao.saveSuitablePara(rdata);
+	}
+
+
+	public RData getsuitablePara() {
+		ArrayList<RData> list = suitableNumberDao.getsuitablePara();
+		RData r = new RData();
+		r.set("suitablePara",list.get(0).getString("suitablePara"));
+		return r;
 	}
 
 

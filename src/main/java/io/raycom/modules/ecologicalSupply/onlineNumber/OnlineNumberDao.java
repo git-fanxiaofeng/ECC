@@ -30,7 +30,7 @@ public interface OnlineNumberDao{
 	
 	RData inspectDrugDict(RData rdata);
 	
-	ArrayList<RData> vendorDrugDictListExcle(RData rdata);
+	ArrayList<RData> queryOnlineNumberExcel(RData rdata);
 	
 	RData selectVendorDrugDict(RData rdata);
 	
@@ -47,6 +47,10 @@ public interface OnlineNumberDao{
 	RData selectExcelVendorDrugDict(RData wdata);
 
 	void updateExcelagrPro(RData wdata);
+
+	void saveOnlinePara(RData rdata);
+
+	ArrayList<RData> getOnlinePara();
 
 
 

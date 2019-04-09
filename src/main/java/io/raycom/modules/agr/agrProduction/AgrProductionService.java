@@ -95,6 +95,10 @@ public class AgrProductionService extends BaseService{
 		agrProductionDao.inserTo(data);
 	}
 
+	public void agrWaterConList(Page<RData> page) {
+		page.setData(agrProductionDao.agrWaterConList(page));
+	}
+
 
 	
 	

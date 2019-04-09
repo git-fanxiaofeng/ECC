@@ -31,58 +31,54 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class OnlineNumberController extends BaseController{
 	
 	@Autowired
-	private OnlineNumberService ecologicalSupplyService;
+	private OnlineNumberService onlineNumberService;
 	
 	/**
 	 * 进入生态供给量页面
 	 * @return
 	 */
 	@RequestMapping(value={"list",""})
-	public String list(){
-		return "ecologicalSupply/ecoSupplyNumber";
+	public String list(Model model){
+		model.addAttribute("data", onlineNumberService.getOnlinePara());
+		return "ecologicalSupply/onlineNumber/onlineNumber";
 	}
 	
 	/**
 	 * 查询生态供给量列表
 	 * @return
 	 */
-	@RequestMapping(value="ecoSupplyNumber")
+	@RequestMapping(value="onlineNumberList")
 	@ResponseBody
 	public Page<RData> vendorDrugDictList(){
-		ecologicalSupplyService.vendorDrugDictList(page);
+		onlineNumberService.vendorDrugDictList(page);
 		return page;
+	}
+	
+	/**
+	 * 修改生态供给量上限参数
+	 * @return
+	 */
+	@RequestMapping(value="saveOnlinePara")
+	@ResponseBody
+	public String saveOnlinePara(){
+		onlineNumberService.saveOnlinePara(rdata);
+		return "ok";
 	}
 	
 
 	/**
-	 * 导出供应商药品字典Excel
+	 * 导出Excel
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "querySupplierDrugDictExcel")
+	@RequestMapping(value = "queryOnlineNumberExcel")
 	public String importExcel(Model model){
-		RMultiData result =ecologicalSupplyService.supplierdrugDictListExcle(rdata);
-		ExcelExportor exportor = new ExcelExportor("SupplierDrugDict.xls", result,model);
+		RMultiData result =onlineNumberService.queryOnlineNumberExcel(rdata);
+		ExcelExportor exportor = new ExcelExportor("onlineNumberExcel.xls", result,model);
 		exportor.addColumn("num", "序号");
-		exportor.addColumn("vendorDrugCode", "药品编码");
-		exportor.addColumn("drugName", "药品名称");
-		exportor.addColumn("aliasName", "药品别名");
-		exportor.addColumn("pinyinCode", "拼音码");
-		exportor.addColumn("miniUnit", "最小包装单位");
-		exportor.addColumn("miniSpec", "最小药品规格");
-		exportor.addColumn("packageUnit", "包装单位");
-		exportor.addColumn("packageSpec", "药品规格");
-		exportor.addColumn("packageRatio", "单位换算转换比");
-		exportor.addColumn("purchaseUnit", "采购单位");
-		exportor.addColumn("purchaseRatio", "采购单位与供应商药品最小单位换算转换比");
-		exportor.addColumn("firmName", "生产厂家");
-		exportor.addColumn("drugForm", "药品剂型");
-		exportor.addColumn("drugClass", "药品分类");
-		exportor.addColumn("purchasePrice", "供应价");
-		exportor.addColumn("rtPrice", "零售价");
-		exportor.addColumn("vendorName", "供应商名称");
-		exportor.addColumn("zeroDiff", "零差标志");
-		exportor.addColumn("useFlag", "使用状态");
+		exportor.addColumn("countryCode", "国家编码");
+		exportor.addColumn("countryName", "国家名称");
+		exportor.addColumn("onlineNumber", "生态供给上限量");
 		return EXCEL;
 	}
 	

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.raycom.modules.agr.agrProCon.AgrProConDao">
+
+	<!-- 查询供应商药品字典列表 -->
+	<select id="vendorDrugDictList" resultType="rdata" >
+		SELECT	rowNum									"num",
+				da.countrycode                        	"countryCode",
+			    da.countryname                          "countryName",
+			    da.tea                                  "tea",
+			    da.beans								"beans",
+			    da.nuts									"nuts",
+			    da.coffee								"coffee",
+			    da.cocoa								"cocoa",
+				da.hemp									"hemp",
+				da.cotton								"cotton",
+				da.otherGrains							"otherGrains",
+				da.vegetables							"vegetables",
+				da.potato								"potato",
+				da.rice									"rice",
+				da.sugar								"sugar",
+				da.wheat								"wheat",
+				da.tobacco								"tobacco",
+				da.corn									"corn",
+				da.oil									"oil",
+				da.palm									"palm"
+          FROM	tb_ecc_agr_procon da
+	</select>
+	
+	<update id="save" parameterType="rdata">
+		update tb_ecc_agr_procon
+		set		p.tea = (select 
+						)
+	</update>
+	
+	<!-- 插入农产品生产量表 -->
+	<insert id="updateExcelagrPro" parameterType="rdata">
+		INSERT INTO tb_ecc_agr_procon 
+				(
+				countryCode,
+				countryName,
+				tea,
+				beans,
+				nuts,
+				coffee,
+				cocoa,
+				hemp,
+				cotton,
+				otherGrains,
+				vegetables,
+				potato,
+				rice,
+				sugar,
+				wheat,
+				tobacco,
+				corn,
+				oil,
+				palm
+				)
+			values
+				(
+				#{countryCode},
+				#{countryName},
+				#{tea},
+				#{beans},
+				#{nuts},
+				#{coffee},
+				#{cocoa},
+				#{hemp},
+				#{cotton},
+				#{otherGrains},
+				#{vegetables},
+				#{potato},
+				#{rice},
+				#{sugar},
+				#{wheat},
+				#{tobacco},
+				#{corn},
+				#{oil},
+				#{palm}
+				)	
+	</insert>
+</mapper>

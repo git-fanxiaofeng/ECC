@@ -7,8 +7,30 @@
 		SELECT	rowNum									"num",
 				da.countrycode                        	"countryCode",
 			    da.countryname                          "countryName",
-			    da.ecoSupplyNumber                      "ecoSupplyNumber"
-          FROM	TB_ECC_ECOSUPPLY da
+			    da.onlineNumber                      	"onlineNumber"
+          FROM	tb_ecc_ecosupply da
+	</select>
+	
+	<select id="queryOnlineNumberExcel" resultType="rdata" >
+			SELECT	rowNum									"num",
+					da.countrycode                        	"countryCode",
+				    da.countryname                          "countryName",
+				    da.onlineNumber                      	"onlineNumber"
+	        FROM	tb_ecc_ecosupply da
+	</select>
+	
+	
+	<!-- 修改上限参数和上限值 -->
+	<update id="saveOnlinePara" parameterType="rdata">
+		update  tb_ecc_ecosupply	e
+		set		e.onlineNumber=e.ecosupplynumber*#{onlinePara},
+				e.onlinepara = to_char(#{onlinePara},'fm999999990.999999999')
+	</update>
+	
+	<select id="getOnlinePara" resultType="rdata">
+		SELECT	
+			    da.onlinePara                 	"onlinePara"
+          FROM	tb_ecc_ecosupply da
 	</select>
 	
 	<!-- 根据药品ID查询药品详细信息 -->

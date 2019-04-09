@@ -30,7 +30,7 @@ public interface SuitableNumberDao{
 	
 	RData inspectDrugDict(RData rdata);
 	
-	ArrayList<RData> vendorDrugDictListExcle(RData rdata);
+	ArrayList<RData> querysuitableNumberExcel(RData rdata);
 	
 	RData selectVendorDrugDict(RData rdata);
 	
@@ -47,6 +47,10 @@ public interface SuitableNumberDao{
 	RData selectExcelVendorDrugDict(RData wdata);
 
 	void updateExcelagrPro(RData wdata);
+
+	void saveSuitablePara(RData rdata);
+
+	ArrayList<RData> getsuitablePara();
 
 
 

@@ -9,6 +9,7 @@ import io.raycom.web.service.BaseService;
 import java.util.ArrayList;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,30 +24,21 @@ import org.springframework.transaction.annotation.Transactional;
 public class OnlineNumberService extends BaseService{
 	
 	@Autowired
-	private OnlineNumberDao ecologicalSupplyDao;
+	private OnlineNumberDao onlineNumberDao;
 	
 	/**
 	 * 查询供应商药品字典数据
 	 * @param page
 	 */
 	public void vendorDrugDictList(Page<RData> page) {
-		page.setData(ecologicalSupplyDao.vendorDrugDictList(page));
-	}
-	
-	/**
-	 * 根据药品ID查询药品详细信息
-	 * @param rdata
-	 * @return
-	 */
-	public RData getVendorDrugDict(RData rdata){
-		return ecologicalSupplyDao.getVendorDrugDict(rdata);
+		page.setData(onlineNumberDao.vendorDrugDictList(page));
 	}
 	
 	
-	//导出药品Excle
-	public RMultiData supplierdrugDictListExcle(RData rdata){
+	//导出Excle
+	public RMultiData queryOnlineNumberExcel(RData rdata){
 		RMultiData rMultiData = new RMultiData();
-		ArrayList<RData> list =ecologicalSupplyDao.vendorDrugDictListExcle(rdata);
+		ArrayList<RData> list =onlineNumberDao.queryOnlineNumberExcel(rdata);
 		for(int i=0;i<list.size();i++){
 			rMultiData.addRData(list.get(i));
 		}
@@ -65,18 +57,30 @@ public class OnlineNumberService extends BaseService{
 			wdata.set("countryCode", purchaseData.getString("countryCode"));
 			wdata.set("countryName", purchaseData.getString("countryName"));
 			wdata.set("ecoSupplyNumber", purchaseData.getString("ecoSupplyNumber"));
-			ecologicalSupplyDao.updateExcelagrPro(wdata);
+			onlineNumberDao.updateExcelagrPro(wdata);
 			//RData rData = selectExcelVendorDrugDict(wdata);
 		}
 		return rdata;
 	}
 	private RData selectExcelVendorDrugDict(RData wdata) {
 		
-		return ecologicalSupplyDao.selectExcelVendorDrugDict(wdata);
+		return onlineNumberDao.selectExcelVendorDrugDict(wdata);
 	}
 
 	public void inserTo(RData data) {
-		ecologicalSupplyDao.inserTo(data);
+		onlineNumberDao.inserTo(data);
+	}
+
+	public void saveOnlinePara(RData rdata) {
+		onlineNumberDao.saveOnlinePara(rdata);
+	}
+
+
+	public RData getOnlinePara() {
+		ArrayList<RData> list = onlineNumberDao.getOnlinePara();
+		RData r = new RData();
+		r.set("onlinePara",list.get(0).getString("onlinePara"));
+		return r;
 	}
 
 

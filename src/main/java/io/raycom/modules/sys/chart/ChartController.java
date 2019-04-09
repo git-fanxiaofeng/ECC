@@ -42,25 +42,24 @@ public class ChartController extends BaseController {
 	}
 	
 	/**
-	 * 查询资质效期线形图所需数据
+	 * 查询生态供给所需数据
 	 * @return 含有x轴、y轴数据的map集合
 	 */
-	@RequestMapping(value="certValidLine")
+	@RequestMapping(value="ecosupply")
 	@ResponseBody
-	public Map<String, Object> queryCertValidForLine(){
-		rdata.set("vendorId", UserUtils.getUser().getCompanyId());
-		ArrayList<RData> rListLine=chartService.queryCertValidForLine(rdata);
-		ArrayList<RData> rListPie=chartService.queryCertValidForPie(rdata);
-		String xData[]= new String[rListLine.size()];
-		String yData[]= new String[rListLine.size()];
-		for(int i=0;i<rListLine.size();i++){
-			xData[i]=rListLine.get(i).getString("certificateName");
-			yData[i]=rListLine.get(i).getString("DAYS");
-		}
+	public Map<String, Object> queryEcoSupplye(){
+//		ArrayList<RData> rListLine=chartService.queryCertValidForLine(rdata);
+//		ArrayList<RData> rListPie=chartService.queryCertValidForPie(rdata);
+//		String xData[]= new String[rListLine.size()];
+//		String yData[]= new String[rListLine.size()];
+//		for(int i=0;i<rListLine.size();i++){
+//			xData[i]=rListLine.get(i).getString("certificateName");
+//			yData[i]=rListLine.get(i).getString("DAYS");
+//		}
 		Map<String, Object> data= new HashMap<String, Object>();
-		data.put("xData", xData);
-		data.put("yData", yData);
-		data.put("pie", rListPie);
+//		data.put("xData", xData);
+//		data.put("yData", yData);
+//		data.put("pie", rListPie);
 		return data;
 	}
 

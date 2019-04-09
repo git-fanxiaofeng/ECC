@@ -7,8 +7,30 @@
 		SELECT	rowNum									"num",
 				da.countrycode                        	"countryCode",
 			    da.countryname                          "countryName",
-			    da.ecoSupplyNumber                      "ecoSupplyNumber"
-          FROM	TB_ECC_ECOSUPPLY da
+			    da.suitableNumber                      	"suitableNumber"
+          FROM	tb_ecc_ecosupply da
+	</select>
+	
+	<select id="querysuitableNumberExcel" resultType="rdata" >
+			SELECT	rowNum									"num",
+					da.countrycode                        	"countryCode",
+				    da.countryname                          "countryName",
+				    da.suitableNumber                      	"suitableNumber"
+	        FROM	tb_ecc_ecosupply da
+	</select>
+	
+	
+	<!-- 修改上限参数和上限值 -->
+	<update id="saveSuitablePara" parameterType="rdata">
+		update  tb_ecc_ecosupply	e
+		set		e.suitableNumber=e.ecosupplynumber*#{suitablePara},
+				e.suitablepara = to_char(#{suitablePara},'fm999999990.999999999')
+	</update>
+	
+	<select id="getsuitablePara" resultType="rdata">
+		SELECT	
+			    da.suitablePara                 	"suitablePara"
+          FROM	tb_ecc_ecosupply da
 	</select>
 	
 	<!-- 根据药品ID查询药品详细信息 -->

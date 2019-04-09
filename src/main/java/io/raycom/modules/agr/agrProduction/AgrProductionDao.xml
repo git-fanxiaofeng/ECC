@@ -27,6 +27,31 @@
           FROM	tb_ecc_agr_production da
 	</select>
 	
+	<!-- 查询供应商药品字典列表 -->
+	<select id="agrWaterConList" resultType="rdata" >
+		SELECT	rowNum									"num",
+				da.countrycode                        	"countryCode",
+			    da.countryname                          "countryName",
+			    da.tea                                  "tea",
+			    da.beans								"beans",
+			    da.nuts									"nuts",
+			    da.coffee								"coffee",
+			    da.cocoa								"cocoa",
+				da.hemp									"hemp",
+				da.cotton								"cotton",
+				da.otherGrains							"otherGrains",
+				da.vegetables							"vegetables",
+				da.potato								"potato",
+				da.rice									"rice",
+				da.sugar								"sugar",
+				da.wheat								"wheat",
+				da.tobacco								"tobacco",
+				da.corn									"corn",
+				da.oil									"oil",
+				da.palm									"palm"
+          FROM	TB_ECC_AGR_WATERCONTENT da
+	</select>
+	
 	<!-- 根据药品ID查询药品详细信息 -->
 	<select id="getVendorDrugDict" resultType="rdata" parameterType="rdata">
 		SELECT	da.vendor_drug_dict_id							"vendorDrugDictId",

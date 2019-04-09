@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.raycom.modules.agr.agrHarvestIndex.AgrHarvestIndexDao">
+
+	<!-- 查询供应商药品字典列表 -->
+	<select id="vendorDrugDictList" resultType="rdata" >
+		SELECT	rowNum									"num",
+				da.countrycode                        	"countryCode",
+			    da.countryname                          "countryName",
+			    da.tea                                  "tea",
+			    da.beans								"beans",
+			    da.nuts									"nuts",
+			    da.coffee								"coffee",
+			    da.cocoa								"cocoa",
+				da.hemp									"hemp",
+				da.cotton								"cotton",
+				da.otherGrains							"otherGrains",
+				da.vegetables							"vegetables",
+				da.potato								"potato",
+				da.rice									"rice",
+				da.sugar								"sugar",
+				da.wheat								"wheat",
+				da.tobacco								"tobacco",
+				da.corn									"corn",
+				da.oil									"oil",
+				da.palm									"palm"
+          FROM	TB_ECC_AGR_HARVESTINDEX da
+	</select>
+	
+	<!-- 根据药品ID查询药品详细信息 -->
+	<select id="getVendorDrugDict" resultType="rdata" parameterType="rdata">
+		SELECT	da.vendor_drug_dict_id							"vendorDrugDictId",
+				da.vendor_drug_code                             "vendorDrugCode",
+			    da.drug_name                                    "drugName",
+			    da.alias_name									"aliasName",
+			    da.pinyin_code									"pinyinCode",
+			    da.drug_form									"drugForm",
+			    da.drug_class									"drugClass",
+			    da.package_spec                                 "packageSpec",
+			    da.package_unit                               	"packageUnit",
+			    da.mini_unit                                  	"miniUnit",
+			    da.mini_spec									"miniSpec",
+			    da.package_ratio                                "packageRatio",
+			    da.purchase_unit								"purchaseUnit",
+			    da.purchase_ratio								"purchaseRatio",
+			    da.firm_name									"firmName",
+			    da.purchase_price                               "purchasePrice",
+			    da.use_flag                                   	"useFlag",
+			    da.zero_diff									"zeroDiff",
+			    da.rt_price										"rtPrice",
+			    (
+			    SELECT	vendor_name
+			    FROM	tb_o_vendor_dict vd
+			    WHERE	da.vendor_id = vd.vendor_id )			"vendorName"
+          FROM	tb_o_vendor_drug_dict da
+         WHERE	da.vendor_drug_dict_id =trim(#{vendorDrugDictId})
+	</select>
+	
+	<!-- 根据输入的药品唯一编码进行校验 -->
+	<select id="inspectDrugDict" resultType="rdata" parameterType="rdata">
+		SELECT	da.vendor_drug_dict_id                           "vendorDrugDictId"
+          FROM	tb_o_vendor_drug_dict da
+         WHERE	da.vendor_drug_code =trim(#{vendorDrugCode})
+         AND	da.use_flag='Y'
+	</select>
+	
+	<!-- 修改供应商药品信息 -->
+	<update id="updateDrugDict" parameterType="rdata">
+		UPDATE tb_o_vendor_drug_dict 
+		   SET  drug_name                                    	=trim(#{drugName}),
+			    alias_name								     	=trim(#{aliasName}),
+			    pinyin_code									 	=trim(#{pinyinCode}),
+			    drug_form									 	=trim(#{drugForm}),
+			    drug_class									 	=trim(#{drugClass}),
+			    package_spec                                 	=trim(#{packageSpec}),
+			    package_unit                               		=trim(#{packageUnit}),
+			    mini_unit                                  		=trim(#{miniUnit}),
+			    mini_spec										=trim(#{miniSpec}),
+			    package_ratio                                 	=trim(#{packageRatio}),
+			    purchase_unit									=trim(#{purchaseUnit}),
+			    purchase_ratio									=trim(#{purchaseRatio}),
+			    rt_price		                               	=trim(#{rtPrice}),
+			    firm_name										=trim(#{firmName}),
+			    use_flag									 	='Y',
+			    zero_diff									 	=trim(#{zeroDiff}),
+			    purchase_price									=trim(#{purchasePrice})
+		 WHERE vendor_drug_dict_id =trim(#{vendorDrugDictId})
+	</update>
+	
+	<!-- 修改Excel导入的数据 -->
+	<select id="updateExcelDrugDict" resultType="rdata" parameterType="rdata">
+		UPDATE tb_o_vendor_drug_dict 
+		   SET  drug_name                                    	=trim(#{drugName}),
+			    alias_name								     	=trim(#{aliasName}),
+			    pinyin_code									 	=trim(#{pinyinCode}),
+			    drug_form									 	=trim(#{drugForm}),
+			    drug_class									 	=trim(#{drugClass}),
+			    package_spec                                 	=trim(#{packageSpec}),
+			    package_unit                               		=trim(#{packageUnit}),
+			    mini_unit                                  		=trim(#{miniUnit}),
+			    mini_spec										=trim(#{miniSpec}),
+			    package_ratio                                 	=trim(#{packageRatio}),
+			    purchase_unit									=trim(#{purchaseUnit}),
+			    purchase_ratio									=trim(#{purchaseRatio}),
+			    rt_price		                               	=trim(#{rtPrice}),
+			    firm_name										=trim(#{firmName}),
+			    use_flag									 	='Y',
+			    zero_diff									 	=trim(#{zeroDiff}),
+			    purchase_price									=trim(#{purchasePrice})
+		 WHERE vendor_drug_code =trim(#{vendorDrugCode})
+	</select>
+	
+	<!-- 删除供应商药品信息 -->
+	<update id="deleteDrugDict" parameterType="rdata">
+		UPDATE tb_o_vendor_drug_dict  da
+		   SET  da.use_flag='N'
+		 WHERE  da.vendor_drug_dict_id =trim(#{vendorDrugDictId})
+	</update>
+	
+	<!-- 查询出当前供应商的Id -->
+	<select id="getVendorCode" parameterType="rdata" resultType="rdata">
+		SELECT org_id "vendorId" 
+		FROM com_user cu 
+		WHERE cu.user_id = #{currentUser}
+	</select>
+	
+	<!-- 插入农产品生产量表 -->
+	<insert id="updateExcelagrPro" parameterType="rdata">
+		INSERT INTO TB_ECC_AGR_HARVESTINDEX 
+				(
+				countryCode,
+				countryName,
+				tea,
+				beans,
+				nuts,
+				coffee,
+				cocoa,
+				hemp,
+				cotton,
+				otherGrains,
+				vegetables,
+				potato,
+				rice,
+				sugar,
+				wheat,
+				tobacco,
+				corn,
+				oil,
+				palm
+				)
+			values
+				(
+				#{countryCode},
+				#{countryName},
+				#{tea},
+				#{beans},
+				#{nuts},
+				#{coffee},
+				#{cocoa},
+				#{hemp},
+				#{cotton},
+				#{otherGrains},
+				#{vegetables},
+				#{potato},
+				#{rice},
+				#{sugar},
+				#{wheat},
+				#{tobacco},
+				#{corn},
+				#{oil},
+				#{palm}
+				)	
+	</insert>
+</mapper>

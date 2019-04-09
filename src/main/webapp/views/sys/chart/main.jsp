@@ -12,18 +12,17 @@
 <div id="ajax-content">
 <div class="row">
 	<form id="form" method="post" action=""></form>
-	<div class="col-xs-12 col-sm-12" style="height: 50px;"></div>
+	<div class="col-xs-12 col-sm-12" style="height: 40px;"></div>
 	<div class="col-xs-12 col-sm-6">
 		<div class="box">
-			<%@include file="/core/include/boxHead.jsp" %>	
-			<div class="box-content" style="height: 323px;">
-				<div  class="ct-chart tab-pane fade in active" style="height: 250%; width: 100%;">
-      	 			<font>最新公告：</font><br>
-      	 			<c:forEach items="${noticeTitle}" var ="title">
-      	 				<font><a href="javascript:void(0)" onclick="fncNoticeDetail(${title.noticeId})" class="tab-link" data-toggle="tab" >${title.noticeTitle}</a></font><br>
-      	 			</c:forEach>	
-      	 		</div>
-      	 	</div>		
+		<%@include file="/core/include/boxHead.jsp" %>	
+			<div class="box-content">
+				<ul class="nav nav-tabs">
+					<li ><a href="javascript:void(0)" onclick="fncSwitchChart2('1')" class="tab-link" data-toggle="tab" >线形图</a></li>
+					<li class="active"><a href="javascript:void(0)" onclick="fncSwitchChart2('2')" class="tab-link" data-toggle="tab" >饼图</a></li>
+				</ul>	
+				<div id="container2" class="ct-chart tab-pane fade in active" style="height: 250%; width: 100%;"></div>
+			</div>
 		</div>
 	</div>
 	<div class="col-xs-12 col-sm-6">
@@ -63,14 +62,14 @@
 			myChart.setOption(getLineOption2());
 			// 处理点击事件并且跳转到相应的资质效期页面
 		    myChart.on('click', function (params) {
-				actSubmit($('#form'), ctx+"/vendorQualification");
+				actSubmit($('#form'), ctx+"/");
 		    });
 		}else if(charType == "2"){
 			var dom = document.getElementById("container2");
 			var myChart = echarts.init(dom);
 			myChart.setOption(getPieOption2());
 			myChart.on('click', function (params) {
-				actSubmit($('#form'), ctx+"/vendorQualification");
+				actSubmit($('#form'), ctx+"/");
 		    });
 		}
 	}
@@ -199,15 +198,14 @@
 				pie21=pieData2[0].NUM;
 				pie22=pieData2[1].NUM;
 				pie23=pieData2[2].NUM;
-				pie24=pieData2[3].NUM;
 			},
-			error : function() {
+			/* error : function() {
 				alert("请求失败")
-			}
+			} */
 		});
  	var option = {
  		    title : {
- 		        text: '资质到期预警',
+ 		        text: '生态供给管理',
  		        x:'center'
  		    },
  		    tooltip : {
@@ -217,25 +215,24 @@
  		    legend: {
  		        orient: 'vertical',
  		        left: 'left',
- 		        data: ['30天以内(含30)','30-90天(含90)','90-180天(含180)','180天以上']
+ 		        data: ['生态供给量','生态供给上限量','生态供给适宜量']
  		    },
  		    series : [
  		        {
- 		            name: '资质效期到期预警',
+ 		            name: '生态供给管理',
  		            type: 'pie',
  		            radius : '55%',
  		            center: ['50%', '60%'],
  		            data:[
- 		                {value:pie21, name:'30天以内(含30)'},
-   		                {value:pie22, name:'30-90天(含90)'},
-   		                {value:pie23, name:'90-180天(含180)'},
-   		                {value:pie24, name:'180天以上'}
+ 		                {value:pie21, name:'生态供给量'},
+   		                {value:pie22, name:'生态供给上限量'},
+   		                {value:pie23, name:'生态供给适宜量'},
  		            ],
  		            itemStyle: {
  		                emphasis: {
  		                    shadowBlur: 10,
  		                    shadowOffsetX: 0,
- 		                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+ 		                    shadowColor: 'rgba(0, 0, 0.5)'
  		                }
  		            }
  		        }

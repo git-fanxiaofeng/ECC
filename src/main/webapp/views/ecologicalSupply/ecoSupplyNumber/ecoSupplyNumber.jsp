@@ -70,7 +70,7 @@
 		}else{
 			rayDialogConfirm("确定要上传吗？",function(){
 				$.ajax({
-					url:ctx+"/ecologicalSupply/import",
+					url:ctx+"/ecoSupplyNumber/import",
 					type:"POST",
 					data:
 					{
@@ -81,7 +81,7 @@
 							rayDialog(data.errorMsg+"或填入信息有误！");
 						}else{
 							rayDialog("导入成功！",function(){
-								actCancel($('#form'), ctx + "/ecologicalSupply");												
+								actCancel($('#form'), ctx + "/ecoSupplyNumber");												
 							});
 						}
 					} 
@@ -104,7 +104,7 @@
 					 <div class="no-move"></div>
 					</div>
 					<div class="box-content">
-							<form class="form-horizontal" id="form" action="/ecologicalSupply/agrProductionList" method="post">
+							<form class="form-horizontal" id="form" action="/ecoSupplyNumber/ecoSupplyNumberList" method="post">
 								<div class="form-group">
 									<label class="col-sm-2 control-label">国家编码</label>
 									<div class="col-sm-2">
