@@ -30,10 +30,10 @@
 		<%@include file="/core/include/boxHead.jsp" %>	
 			<div class="box-content">
 				<ul class="nav nav-tabs">
-					<li ><a href="javascript:void(0)" onclick="fncSwitchChart2('1')" class="tab-link" data-toggle="tab" >线形图</a></li>
-					<li class="active"><a href="javascript:void(0)" onclick="fncSwitchChart2('2')" class="tab-link" data-toggle="tab" >饼图</a></li>
+					<li ><a href="javascript:void(0)" onclick="fncSwitchChart('1')" class="tab-link" data-toggle="tab" >线形图</a></li>
+					<li class="active"><a href="javascript:void(0)" onclick="fncSwitchChart('2')" class="tab-link" data-toggle="tab" >饼图</a></li>
 				</ul>	
-				<div id="container2" class="ct-chart tab-pane fade in active" style="height: 250%; width: 100%;"></div>
+				<div id="container" class="ct-chart tab-pane fade in active" style="height: 250%; width: 100%;"></div>
 			</div>
 		</div>
 	</div>
@@ -71,6 +71,8 @@
 			myChart.on('click', function (params) {
 				actSubmit($('#form'), ctx+"/");
 		    });
+			
+			
 		}
 	}
 	
@@ -80,9 +82,38 @@
 	option = null;
 	myChart2.showLoading();
 	myChart2.hideLoading();
+	myChart2.setOption(getPieOption2());
 	
- //myChart.setOption(getLineOption());
- myChart2.setOption(getPieOption2());
+	function fncSwitchChart(charType){
+		if(charType == "1"){
+			var dom = document.getElementById("container");
+			var myChart = echarts.init(dom);
+			myChart.setOption(getLineOption2());
+			// 处理点击事件并且跳转到相应的资质效期页面
+		    myChart.on('click', function (params) {
+				actSubmit($('#form'), ctx+"/");
+		    });
+		}else if(charType == "2"){
+			var dom = document.getElementById("container");
+			var myChart = echarts.init(dom);
+			myChart.setOption(getPieOption2());
+			myChart.on('click', function (params) {
+				actSubmit($('#form'), ctx+"/");
+		    });
+			
+			
+		}
+	}
+	
+	 var dom = document.getElementById("container");
+	var myChart = echarts.init(dom);
+	var app = {};
+	option = null;
+	myChart.showLoading();
+	myChart.hideLoading();
+	
+ myChart.setOption(getLineOption()); 
+ 
  
 // 处理点击事件并且跳转到相应的资质效期页面
  myChart2.on('click', function (params) {
@@ -240,6 +271,65 @@
  		}; 
  	return option;
  }
+ 
+ 
+ function getPieOption(){
+	 	$.ajax({
+				async : false,
+				cache : false,
+				type : "post",
+				url : ctx + "/chart/certValidLine",
+				success : function(data) {
+					xData2=data.xData;
+					yData2=data.yData;
+					pieData2=data.pie;
+					pie21=pieData2[0].NUM;
+					pie22=pieData2[1].NUM;
+					pie23=pieData2[2].NUM;
+				},
+				/* error : function() {
+					alert("请求失败")
+				} */
+			});
+	 	var option = {
+	 		    title : {
+	 		        text: '农业管理',
+	 		        x:'center'
+	 		    },
+	 		    tooltip : {
+	 		        trigger: 'item',
+	 		        formatter: "{a} <br/>{b} : {c} ({d}%)"
+	 		    },
+	 		    legend: {
+	 		        orient: 'vertical',
+	 		        left: 'left',
+	 		        data: ['农业生产量','农业含水量','碳含量转换','农业生产收获指数','农业生产消耗量']
+	 		    },
+	 		    series : [
+	 		        {
+	 		            name: '生态供给管理',
+	 		            type: 'pie',
+	 		            radius : '55%',
+	 		            center: ['50%', '60%'],
+	 		            data:[
+	 		                {value:pie21, name:'农业生产量'},
+	   		                {value:pie22, name:'农业含水量'},
+	   		                {value:pie23, name:'碳含量转换'},
+	   		             	{value:pie24, name:'农业生产收获指数'},
+	   		                {value:pie25, name:'农业生产消耗量'},
+	 		            ],
+	 		            itemStyle: {
+	 		                emphasis: {
+	 		                    shadowBlur: 10,
+	 		                    shadowOffsetX: 0,
+	 		                    shadowColor: 'rgba(0, 0, 0.5)'
+	 		                }
+	 		            }
+	 		        }
+	 		    ]
+	 		}; 
+	 	return option;
+	 }
 
  </script>
 </html>

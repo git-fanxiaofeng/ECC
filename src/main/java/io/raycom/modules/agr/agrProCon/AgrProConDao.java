@@ -50,6 +50,10 @@ public interface AgrProConDao{
 
 	void save(RData rdata);
 
+	void deleteProcon();
+
+	ArrayList<RData> getOnlinePara();
+
 
 
 	

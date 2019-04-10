@@ -60,7 +60,7 @@
 			data:
 			{
 				wlr:$("#wlr").val(),
-				proRes:$("#proRes").val()
+				prores:$("#proRes").val()
 			},
 			success:function(data){
 				if(data == "ok" ){
@@ -86,15 +86,15 @@
 					 <div class="no-move"></div>
 					</div>
 					<div class="box-content">
-							<form class="form-horizontal" id="form" action="/agrWaterConver/agrWaterConverList" method="post">
+							<form class="form-horizontal" id="form" action="/agrProCon/agrProConList" method="post">
 								<div class="form-group">
 									<label class="col-sm-2 control-label">农业生产资源利用率</label>
 									<div class="col-sm-2">
-										<input type="text" id="proRes" name="proRes" class="form-control" 	placeholder="农业生产资源利用率" data-query="yes" data-toggle="tooltip"data-placement="bottom" >
+										<input type="text" value="${data.PRORES}" id="proRes" name="proRes" class="form-control" 	placeholder="农业生产资源利用率" data-query="yes" data-toggle="tooltip"data-placement="bottom" >
 									</div>
 									<label class="col-sm-2 control-label">农业生产浪费率提升率</label>
 									<div class="col-sm-2">
-										<input type="text" id="wlr" name="wlr" class="form-control" 	placeholder="农业生产浪费率提升率" data-query="yes" data-toggle="tooltip"data-placement="bottom" >
+										<input type="text" value="${data.WLR}" id="wlr" name="wlr" class="form-control" 	placeholder="农业生产浪费率提升率" data-query="yes" data-toggle="tooltip"data-placement="bottom" >
 									</div>
 								</div>
 								<div class="form-group">

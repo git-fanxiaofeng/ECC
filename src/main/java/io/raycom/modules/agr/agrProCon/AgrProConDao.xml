@@ -27,14 +27,43 @@
           FROM	tb_ecc_agr_procon da
 	</select>
 	
-	<update id="save" parameterType="rdata">
-		update tb_ecc_agr_procon
-		set		p.tea = (select 
-						)
-	</update>
+	<select id="vendorDrugDictListExcle" resultType="rdata" >
+		SELECT	rowNum									"num",
+				da.countrycode                        	"countryCode",
+			    da.countryname                          "countryName",
+			    da.tea                                  "tea",
+			    da.beans								"beans",
+			    da.nuts									"nuts",
+			    da.coffee								"coffee",
+			    da.cocoa								"cocoa",
+				da.hemp									"hemp",
+				da.cotton								"cotton",
+				da.otherGrains							"otherGrains",
+				da.vegetables							"vegetables",
+				da.potato								"potato",
+				da.rice									"rice",
+				da.sugar								"sugar",
+				da.wheat								"wheat",
+				da.tobacco								"tobacco",
+				da.corn									"corn",
+				da.oil									"oil",
+				da.palm									"palm"
+          FROM	tb_ecc_agr_procon da
+	</select>
+	
+	<select id="getOnlinePara" resultType="rdata">
+		SELECT	
+			    da.PRORES                 		"PRORES",
+			    da.WLR							"WLR"
+          FROM	tb_ecc_agr_procon da
+	</select>
+	
+	<delete id = "deleteProcon">
+		delete  from tb_ecc_agr_procon
+	</delete>
 	
 	<!-- 插入农产品生产量表 -->
-	<insert id="updateExcelagrPro" parameterType="rdata">
+	<insert id="save" parameterType="rdata">
 		INSERT INTO tb_ecc_agr_procon 
 				(
 				countryCode,
@@ -55,29 +84,42 @@
 				tobacco,
 				corn,
 				oil,
-				palm
+				palm,
+				PRORES,
+				WLR
 				)
-			values
-				(
-				#{countryCode},
-				#{countryName},
-				#{tea},
-				#{beans},
-				#{nuts},
-				#{coffee},
-				#{cocoa},
-				#{hemp},
-				#{cotton},
-				#{otherGrains},
-				#{vegetables},
-				#{potato},
-				#{rice},
-				#{sugar},
-				#{wheat},
-				#{tobacco},
-				#{corn},
-				#{oil},
-				#{palm}
-				)	
+			select 	
+					pr.countrycode,
+					pr.countryName,
+					(pr.tea*un.tea*(1-aw.tea)*ca.tea*(1-#{prores}))/ha.tea*(1-wa.tea*(1-#{wlr})),
+					(pr.beans*un.beans*(1-aw.beans)*ca.beans*(1-#{prores}))/ha.beans*(1-wa.beans*(1-#{wlr})),
+					(pr.nuts*un.nuts*(1-aw.nuts)*ca.nuts*(1-#{prores}))/ha.nuts*(1-wa.nuts*(1-#{wlr})),
+					(pr.coffee*un.coffee*(1-aw.coffee)*ca.coffee*(1-#{prores}))/ha.coffee*(1-wa.coffee*(1-#{wlr})),
+					(pr.cocoa*un.cocoa*(1-aw.cocoa)*ca.cocoa*(1-#{prores}))/ha.cocoa*(1-wa.cocoa*(1-#{wlr})),
+					(pr.hemp*un.hemp*(1-aw.hemp)*ca.hemp*(1-#{prores}))/ha.hemp*(1-wa.hemp*(1-#{wlr})),
+					(pr.cotton*un.cotton*(1-aw.cotton)*ca.cotton*(1-#{prores}))/ha.cotton*(1-wa.cotton*(1-#{wlr})),
+					(pr.otherGrains*un.otherGrains*(1-aw.otherGrains)*ca.otherGrains*(1-#{prores}))/ha.otherGrains*(1-wa.otherGrains*(1-#{wlr})),
+					(pr.vegetables*un.vegetables*(1-aw.vegetables)*ca.vegetables*(1-#{prores}))/ha.vegetables*(1-wa.vegetables*(1-#{wlr})),
+					(pr.potato*un.potato*(1-aw.potato)*ca.potato*(1-#{prores}))/ha.potato*(1-wa.potato*(1-#{wlr})),
+					(pr.rice*un.rice*(1-aw.rice)*ca.rice*(1-#{prores}))/ha.rice*(1-wa.rice*(1-#{wlr})),
+					(pr.sugar*un.sugar*(1-aw.sugar)*ca.sugar*(1-#{prores}))/ha.sugar*(1-wa.sugar*(1-#{wlr})),
+					(pr.wheat*un.wheat*(1-aw.wheat)*ca.wheat*(1-#{prores}))/ha.wheat*(1-wa.wheat*(1-#{wlr})),
+					(pr.tobacco*un.tobacco*(1-aw.tobacco)*ca.tobacco*(1-#{prores}))/ha.tobacco*(1-wa.tobacco*(1-#{wlr})),
+					(pr.corn*un.corn*(1-aw.corn)*ca.corn*(1-#{prores}))/ha.corn*(1-wa.corn*(1-#{wlr})),
+					(pr.oil*un.oil*(1-aw.oil)*ca.oil*(1-#{prores}))/ha.oil*(1-wa.oil*(1-#{wlr})),
+					(pr.palm*un.palm*(1-aw.palm)*ca.palm*(1-#{prores}))/ha.palm*(1-wa.palm*(1-#{wlr})),
+					to_char(#{prores},'fm999999990.999999999'),
+					to_char(#{wlr},'fm999999990.999999999')
+			 from  		tb_ecc_agr_production pr,
+			 			tb_ecc_agr_unitconver un,
+			 			tb_ecc_agr_wasterate  wa,
+			 			tb_ecc_agr_watercontent	aw,
+			 			tb_ecc_agr_carboncon	ca,
+			 			tb_ecc_agr_harvestindex	ha
+			 where		pr.countrycode = un.countrycode
+			 and		un.countrycode = wa.countrycode
+			 and		wa.countrycode = aw.countrycode
+			 and		aw.countrycode= ca.countrycode
+			 and		ca.countrycode = ha.countrycode
 	</insert>
 </mapper>

@@ -96,10 +96,17 @@ public class AgrProConService extends BaseService{
 	}
 
 	public void save(RData rdata) {
+		agrProductionDao.deleteProcon();
 		agrProductionDao.save(rdata);
 	}
 
-
+	public RData getOnlinePara() {
+		ArrayList<RData> list = agrProductionDao.getOnlinePara();
+		RData r = new RData();
+		r.set("PRORES",list.get(0).getString("PRORES"));
+		r.set("WLR",list.get(0).getString("WLR"));
+		return r;
+	}
 	
 	
 
