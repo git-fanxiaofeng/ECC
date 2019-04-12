@@ -45,7 +45,7 @@ public class ChartController extends BaseController {
 	 * 查询生态供给所需数据
 	 * @return 含有x轴、y轴数据的map集合
 	 */
-	@RequestMapping(value="ecosupply")
+	@RequestMapping(value="certValidLine")
 	@ResponseBody
 	public Map<String, Object> queryEcoSupplye(){
 //		ArrayList<RData> rListLine=chartService.queryCertValidForLine(rdata);

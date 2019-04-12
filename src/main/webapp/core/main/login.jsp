@@ -13,9 +13,9 @@
 	<div id="login-popup-box">  
 		<div id="login-popup-left"> 
 			<div id="login-popup-left-inner"> 
-			<!-- <div class="login-vip-popup-content">
-				<p class="vip-title">中国医用器械耗材供应链的组织者和管理者</p>
-				<div class="vip-content">
+			<div class="login-vip-popup-content">
+				<!--<p class="vip-title">中国科学院地理所</p>
+				 <div class="vip-content">
 					<ul>
 						<li>安全、效率、效益</li>
 						<li>让专业的人专注做专业的事</li>
@@ -69,13 +69,15 @@
 				<a  href = "javascript:;" onclick ="login();" class="userupbtn btnfx btn-8g" id="login_btn">登录</a> 
 				   <input type="submit" name="argsubmit" style="display:none"/>
 			</div> 
-			<div class="go_sign_up"> 请输入用户名和密码进行登陆 
+			<!-- <div class="go_sign_up"> 请输入用户名和密码进行登陆  -->
+			<div class="go_sign_up"> 中国科学院地理所  
 			<div class="go_sign_up"> 推荐浏览器下载--<a id="go-register" href = "http://106.14.127.212/firefox.exe"  >火狐浏览器</a></div> 
+				
 			</form>
 			</div> 
 			<div class="terms_privacy form-bottom"> 
 			<hr class="hr1"> 
-			<span class="user_other_login">范晓峰©2019</span> 
+			<span class="user_other_login">李赟凯©2019</span> 
 			</div> 
 		</div>           
 		</div>  

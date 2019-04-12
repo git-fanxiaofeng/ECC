@@ -6,6 +6,8 @@ import io.raycom.web.persistence.annotation.MyBatisDao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mybatis.spring.annotation.MapperScan;
+
 /**
  * 图表化数据查询Dao
  * @author GuoJianmin

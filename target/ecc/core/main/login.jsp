@@ -13,9 +13,9 @@
 	<div id="login-popup-box">  
 		<div id="login-popup-left"> 
 			<div id="login-popup-left-inner"> 
-			<!-- <div class="login-vip-popup-content">
-				<p class="vip-title">中国医用器械耗材供应链的组织者和管理者</p>
-				<div class="vip-content">
+			 <div class="login-vip-popup-content">
+				<p class="vip-title">中国科学院地理所</p>
+				<!--<div class="vip-content">
 					<ul>
 						<li>安全、效率、效益</li>
 						<li>让专业的人专注做专业的事</li>
@@ -75,7 +75,7 @@
 			</div> 
 			<div class="terms_privacy form-bottom"> 
 			<hr class="hr1"> 
-			<span class="user_other_login">范晓峰©2019</span> 
+			<span class="user_other_login">李赟凯©2019</span> 
 			</div> 
 		</div>           
 		</div>  

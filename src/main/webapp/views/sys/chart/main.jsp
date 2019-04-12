@@ -12,8 +12,8 @@
 <div id="ajax-content">
 <div class="row">
 	<form id="form" method="post" action=""></form>
-	<div class="col-xs-12 col-sm-12" style="height: 40px;"></div>
-	<div class="col-xs-12 col-sm-6">
+	<div class="col-xs-12 col-sm-12" style="height:100%"></div>
+	<%-- <div class="col-xs-12 col-sm-6">
 		<div class="box">
 		<%@include file="/core/include/boxHead.jsp" %>	
 			<div class="box-content">
@@ -24,16 +24,16 @@
 				<div id="container2" class="ct-chart tab-pane fade in active" style="height: 250%; width: 100%;"></div>
 			</div>
 		</div>
-	</div>
-	<div class="col-xs-12 col-sm-6">
+	</div> --%>
+	<div class="col-xs-12 col-sm-10">
 		<div class="box">
 		<%@include file="/core/include/boxHead.jsp" %>	
 			<div class="box-content">
-				<ul class="nav nav-tabs">
+				<!-- <ul class="nav nav-tabs">
 					<li ><a href="javascript:void(0)" onclick="fncSwitchChart('1')" class="tab-link" data-toggle="tab" >线形图</a></li>
-					<li class="active"><a href="javascript:void(0)" onclick="fncSwitchChart('2')" class="tab-link" data-toggle="tab" >饼图</a></li>
-				</ul>	
-				<div id="container" class="ct-chart tab-pane fade in active" style="height: 250%; width: 100%;"></div>
+					<li class="active"><a href="javascript:void(0)" onclick="fncSwitchChart('2')" class="tab-link" data-toggle="tab" >柱形图</a></li>
+				</ul>	 -->
+				<div id="container" class="ct-chart tab-pane fade in active" style="height: 450%; width: 100%;"></div>
 			</div>
 		</div>
 	</div>
@@ -42,9 +42,9 @@
 <!--End Container-->
 </div>
 </body>
- <script type="text/javascript"">
+<!--  <script type="text/javascript"">
  
-	function jumpPage(){
+	/* function jumpPage(){
 		actSubmit($('#form'), ctx+"/purchase");
 	}
 	function fncToNotice(){
@@ -113,108 +113,6 @@
 	myChart.hideLoading();
 	
  myChart.setOption(getLineOption()); 
- 
- 
-// 处理点击事件并且跳转到相应的资质效期页面
- myChart2.on('click', function (params) {
- 	actSubmit($('#form'), ctx+"/vendorQualification");
- });
- 
- var xData2;
-	var yData2; 
-	var pieData2;
-	var pie21;
-	var pie22;
-	var pie23;
-	var pie24;
- function getLineOption2(){
- 	
- 	var option = {  
- 	        title : {  
- 	            text: '资质到期预警',  
- 	            x: 'left'
- 	        },  
- 	        tooltip : {  
- 	            trigger: 'axis'//item  axis  
- 	        },  
- 	        legend: {  
- 	            data:['资质到期']  
- 	        },  
- 	        toolbox: {  
- 	            show : true,  
- 	            feature : {  
- 	                mark : {show: true},  
- 	                dataView : {show: true, readOnly: false},  
- 	                magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},  
- 	                restore : {show: true},  
- 	                saveAsImage : {show: true}  
- 	            }  
- 	        },  
- 	        calculable : false,  
- 	        grid: {
- 	            top: '30%',
- 	            left: '11%',
- 	            right: '10%',
- 	            containLabel: true
- 	        },
- 	        xAxis : [  
- 	            {  
- 	                type : 'category',  
- 	                boundaryGap : false,  
- 	                data : xData2 
- 	            }  
- 	        ],  
- 	        yAxis : [  
- 	            {  
- 	                type : 'value',  
- 	                axisLabel : {  
- 	                    formatter: '{value} 天'  
- 	                },  
- 	                splitNumber:6  
- 	            }  
- 	        ],  
- 	      /*  dataZoom: [
- 	                   {
- 	                       show: true,
- 	                       start: 0,
- 	                       end: 100
- 	                   },
- 	                   {
- 	                       type: 'inside',
- 	                       start: 94,
- 	                       end: 100
- 	                   },
- 	                   {
- 	                       show: true,
- 	                       yAxisIndex: 0,
- 	                       filterMode: 'empty',
- 	                       width: 30,
- 	                       height: '80%',
- 	                       showDataShadow: false,
- 	                       left: '93%'
- 	                   }
- 	               ],*/
- 	        series : [  
- 	            {  
- 	                name:'资质到期',  
- 	                type:'line',  
- 	                data:yData2,  
- 	                markPoint : {  
- 	                    data : [  
- 	                        {type : 'max', name: '最大值'},  
- 	                        {type : 'min', name: '最小值'}  
- 	                    ]  
- 	                },   
- 	                markLine : {  
- 	                    data : [  
- 	                        {type : 'average', name : '平均值'}  
- 	                    ]  
- 	                }  
- 	            }  
- 	        ]  
- 	    }; 
- 	return option;
- }
  
  function getPieOption2(){
  	$.ajax({
@@ -330,6 +228,272 @@
 	 		}; 
 	 	return option;
 	 }
+ */
+ </script> -->
+ <script type="text/javascript">
+ var dom;
+ 
+ $(document).ready(function() {
+	 fncSwitchChart("2");
+		
+	});
+ 
+ function fncSwitchChart(charType){
+		if(charType == "1"){
+			
+		}else if(charType == "2"){
+			dom = document.getElementById("container");
+			var myChart = echarts.init(dom);
+			myChart.setOption(getPieOption());
+			myChart.on('click', function (params) {
+				actSubmit($('#form'), ctx+"/");
+		    });
+			
+			
+		}
+	}
+ function getPieOption(){
+	   var posList = [
+	                'left', 'right', 'top', 'bottom',
+	                'inside',
+	                'insideTop', 'insideLeft', 'insideRight', 'insideBottom',
+	                'insideTopLeft', 'insideTopRight', 'insideBottomLeft', 'insideBottomRight'
+	            ];
+	  
+	   dom.configParameters = {
+	                rotate: {
+	                    min: -90,
+	                    max: 90
+	                },
+	                align: {
+	                    options: {
+	                        left: 'left',
+	                        center: 'center',
+	                        right: 'right'
+	                    }
+	                },
+	                verticalAlign: {
+	                    options: {
+	                        top: 'top',
+	                        middle: 'middle',
+	                        bottom: 'bottom'
+	                    }
+	                },
+	                position: {
+	                    options: echarts.util.reduce(posList, function (map, pos) {
+	                        map[pos] = pos;
+	                        return map;
+	                    }, {})
+	                },
+	                distance: {
+	                    min: 0,
+	                    max: 100000
+	                }
+	            };
 
+	   dom.config = {
+	                rotate: 90,
+	                align: 'left',
+	                verticalAlign: 'middle',
+	                position: 'insideBottom',
+	                distance: 15,
+	                onChange: function () {
+	                    var labelOption = {
+	                        normal: {
+	                            rotate: dom.config.rotate,
+	                            align: dom.config.align,
+	                            verticalAlign: dom.config.verticalAlign,
+	                            position: dom.config.position,
+	                            distance: dom.config.distance
+	                        }
+	                    };
+	                    myChart.setOption({
+	                        series: [{
+	                            label: labelOption
+	                        }, {
+	                            label: labelOption
+	                        }, {
+	                            label: labelOption
+	                        }, {
+	                            label: labelOption
+	                        }]
+	                    });
+	                }
+	            };
+
+
+	            var labelOption = {
+	                normal: {
+	                    show: true,
+	                    position: dom.config.position,
+	                    distance: dom.config.distance,
+	                    align: dom.config.align,
+	                    verticalAlign: dom.config.verticalAlign,
+	                    rotate: dom.config.rotate,
+	                    //formatter: '{c}  {{a}}',
+	                   /*  fontSize: 16,
+	                    rich: {
+	                        name: {
+	                            textBorderColor: '#fff'
+	                        }
+	                    } */
+	                }
+	            };  
+
+	          var option = {
+	        		  title : {
+	        		        text: '农业管理',
+	        		        x:'left'
+	        		    },  
+	                color: ['#003366', '#006699', '#4cabce', '#e5323e','#003366', '#006699', '#4cabce', '#e5323e','#003366', '#006699', '#4cabce', '#e5323e','#003366', '#006699', '#4cabce'],
+	                tooltip: {
+	                    trigger: 'axis',
+	                    axisPointer: {
+	                        type: 'shadow'
+	                    }
+	                },
+	                legend: {
+	                    data: ['茶', '豆类','坚果','咖啡','可可','茶', '豆类','坚果','咖啡','茶', '豆类','坚果','咖啡','可可','茶', '豆类','坚果','咖啡']
+	                },
+	                toolbox: {
+	                    show: true,
+	                    orient: 'vertical',
+	                    left: 'right',
+	                    top: 'center',
+	                    feature: {
+	                        mark: {show: true},
+	                        dataView: {show: true, readOnly: false},
+	                        magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+	                        restore: {show: true},
+	                        saveAsImage: {show: true}
+	                    }
+	                },
+	                calculable: true,
+	                xAxis: [
+	                    {
+	                        type: 'category',
+	                        axisTick: {show: false},
+	                        data: ['Armenia','Afghanistan','Armenia','Afghanistan','Bangladesh']
+	                    }
+	                ],
+	                yAxis: [
+	                    {
+	                        type: 'value'
+	                    }
+	                ],
+	                series: [
+	                    {
+	                        name: '含水量',
+	                        type: 'bar',
+	                        barGap: 0,
+	                        label: labelOption,
+	                        data: [32011122, 332131232, 301231231, 3331232134, 312312390]
+	                    },
+	                    {
+	                        name: '含水量',
+	                        type: 'bar',
+	                        label: labelOption,
+	                        data: [32011122, 332131232, 301231231, 3331232134, 312312390]
+	                    }, 
+	                    {
+	                        name: '收获指数',
+	                        type: 'bar',
+	                        label: labelOption,
+	                        data: [32011122, 332131232, 301231231, 3331232134, 312312390]
+	                    },
+	                    {
+	                        name: '消耗量',
+	                        type: 'bar',
+	                        label: labelOption,
+	                        data: [32011122, 332131232, 301231231, 3331232134, 312312390]
+	                    },
+	                    {
+	                        name: '',
+	                        type: 'bar',
+	                        barGap: 0,
+	                        label: labelOption,
+	                        data: [32011122, 332131232, 301231231, 3331232134, 312312390]
+	                    },
+	                    {
+	                        name: '含水量',
+	                        type: 'bar',
+	                        label: labelOption,
+	                        data: [32011122, 332131232, 301231231, 3331232134, 312312390]
+	                    }, 
+	                    {
+	                        name: '收获指数',
+	                        type: 'bar',
+	                        label: labelOption,
+	                        data: [32011122, 332131232, 301231231, 3331232134, 312312390]
+	                    },
+	                    {
+	                        name: '消耗量',
+	                        type: 'bar',
+	                        label: labelOption,
+	                        data: [32011122, 332131232, 301231231, 3331232134, 312312390]
+	                    },
+	                    {
+	                        name: '含水量',
+	                        type: 'bar',
+	                        barGap: 0,
+	                        label: labelOption,
+	                        data: [32011122, 332131232, 301231231, 3331232134, 312312390]
+	                    },
+	                    {
+	                        name: '含水量',
+	                        type: 'bar',
+	                        label: labelOption,
+	                        data: [32011122, 332131232, 301231231, 3331232134, 312312390]
+	                    }, 
+	                    {
+	                        name: '收获指数',
+	                        type: 'bar',
+	                        label: labelOption,
+	                        data: [32011122, 332131232, 301231231, 3331232134, 312312390]
+	                    },
+	                    {
+	                        name: '消耗量',
+	                        type: 'bar',
+	                        label: labelOption,
+	                        data: [32011122, 332131232, 301231231, 3331232134, 312312390]
+	                    },
+	                    {
+	                        name: '',
+	                        type: 'bar',
+	                        barGap: 0,
+	                        label: labelOption,
+	                        data: [32011122, 332131232, 301231231, 3331232134, 312312390]
+	                    },
+	                    {
+	                        name: '含水量',
+	                        type: 'bar',
+	                        label: labelOption,
+	                        data: [32011122, 332131232, 301231231, 3331232134, 312312390]
+	                    }, 
+	                    {
+	                        name: '收获指数',
+	                        type: 'bar',
+	                        label: labelOption,
+	                        data: [32011122, 332131232, 301231231, 3331232134, 312312390]
+	                    },
+	                    {
+	                        name: '消耗量',
+	                        type: 'bar',
+	                        label: labelOption,
+	                        data: [32011122, 332131232, 301231231, 3331232134, 312312390]
+	                    }
+	                    ,
+	                    {
+	                        name: '消耗量',
+	                        type: 'bar',
+	                        label: labelOption,
+	                        data: [32011122, 332131232, 301231231, 3331232134, 312312390]
+	                    }
+	                    
+	                ]
+	            };
+	            return option;
+ }
+ 
  </script>
 </html>
