@@ -304,10 +304,10 @@ $.fn.rayDatePicker=function(){
 $.fn.rayfileupload=function(attchId,callback,eventFired){
 	return this.fileupload({
 	    multipart: true,
-	    url: ctxCdn+"/file/upload",
+	    url: ctx+"/file/upload",
 	    add: function (e, data) {
 	    	if(eventFired)
-	    		data.formData = {eventFired: eventFired,sysName:"usc"}
+	    		data.formData = {eventFired: eventFired}
 	      	data.submit();
 	    },
 	    done: function (e, data) {
@@ -316,7 +316,7 @@ $.fn.rayfileupload=function(attchId,callback,eventFired){
 	   	 	}else{
 	   	 		$('#'+attchId).val(data.result.fileId);
 	   	 		$('#'+attchId).next("#uploadContent").remove();
-	   	 		$('#'+attchId).after('<div id="uploadContent"><a href="'+ ctxCdn+'/file/download?fileId='+data.result.fileId+'" target="_blank">'+data.files[0].name+'</a></div>');
+	   	 		$('#'+attchId).after('<div id="uploadContent"><a href="'+ ctx+'/file/download?fileId='+data.result.fileId+'" target="_blank">'+data.files[0].name+'</a></div>');
 	   	 	 if(typeof callback == "function")  callback();
 	   	 	}
 	    },

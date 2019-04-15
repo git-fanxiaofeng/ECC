@@ -50,6 +50,8 @@ public interface AgrProductionDao{
 
 	List<RData> agrWaterConList(Page<RData> page);
 
+	void deletePro();
+
 
 
 	

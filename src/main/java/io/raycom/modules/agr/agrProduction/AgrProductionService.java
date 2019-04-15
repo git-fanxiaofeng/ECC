@@ -60,6 +60,7 @@ public class AgrProductionService extends BaseService{
 	public RData save(RData rdata, RMultiData mdata) {
 		if(mdata.getMaxDataCount()==0)return rdata;
 		RData wdata = new RData();
+		agrProductionDao.deletePro();
 		for (int i = 0; i < mdata.getMaxDataCount(); i++) {
 			RData purchaseData = mdata.getRData(i);
 			wdata.set("countryCode", purchaseData.getString("countryCode"));
