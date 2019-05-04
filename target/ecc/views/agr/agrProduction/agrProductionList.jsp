@@ -9,6 +9,7 @@
 <%@include file="/core/include/vue/vue.jsp" %>
 </head> 
 <body>
+
 	<div id="content" class="col-xs-12 col-sm-12">
 		<div id="ajax-content">
 			<rt:navigation/>
@@ -33,7 +34,7 @@
 								</div>
 								<div class="form-group">
 									<div class="col-sm-12 text-center btn-raycom-search">
-										<button v-on:click="chaxun()" type="button" class="btn btn-default  btn-xs btn-raycom " id="btnSearch" >
+										<button @click="chaxun()" type="button" class="btn btn-default  btn-xs btn-raycom " id="btnSearch" >
 											查&nbsp;询 
 										</button>
 									</div>
@@ -109,101 +110,62 @@
 	    	$("#btnSearch").click();
 	});
 	
-/* 	$(document).ready(function() {
-		$('#filed1Upload').rayfileupload('materialfiled1','fileDir');
-		table = $('#datatable-form').raytable('form',{rightColumns:-1});
-		$(".js-example-basic-single").select2();
-		setWinMoved(); 
-		
-		$("#btnSearch").click(function() {
-				table.ajax.reload();
-		});
-		
-		$("#vendorDrugCode").keyup(function(event){
-			if(event.keyCode == 13){
-				$("#btnSearch").click();
-			};
-		});
-		
-		$("#drugName").keyup(function(event){
-			if(event.keyCode == 13){
-				$("#btnSearch").click();
-			};
-		});
-		
-		$("#firmName").keyup(function(event){
-			if(event.keyCode == 13){
-				$("#btnSearch").click();
-			};
-		});
-		
-		$("#aliasName").keyup(function(event){
-			if(event.keyCode == 13){
-				$("#btnSearch").click();
-			};
-		});
-	}); */
-	
-	function fncExcel(){
-		actSubmit($('#form'), ctx+"/vendorDrugDict/querySupplierDrugDictExcel");
-	}
-	
-	function fncDetail(vendorDrugDictId){
-		actSubmit($('#form'), ctx + "/vendorDrugDict/detailInfo?vendorDrugDictId="+vendorDrugDictId);
-	}
-	
-	//上传Excel文件
-	function importExcel() {
-		if($("#materialfiled1").val()==""||$("#materialfiled1").val()==null){
-			rayDialog("请先选择要上传的Excel文件！");
-		}else{
-			rayDialogConfirm("确定要上传吗？",function(){
-				$.ajax({
-					url:ctx+"/agrProduction/import",
-					type:"POST",
-					data:
-					{
-						fileId:$("#materialfiled1").val()
-					},
-					success:function(data){
-						if(data.hasError == "Y" ){
-							rayDialog(data.errorMsg+"或填入信息有误！");
-						}else{
-							rayDialog("导入成功！",function(){
-								actCancel($('#form'), ctx + "/agrProduction");												
-							});
-						}
-					} 
-				}); 
-			});
-		}
-	}
-	
-	 new Vue({
+	 var fxf = new Vue({
 		el:'#content',
 		data:{
 			countryCode:'',
 			countryName:'',
 			materialfiled1:'',
 		},
-		mounted:function(){
+		 mounted:function(){
 			$('#filed1Upload').rayfileupload('materialfiled1','fileDir');
 			table = $('#datatable-form').raytable('form',{rightColumns:-1});
 			$(".js-example-basic-single").select2();
 			setWinMoved(); 
 			
-			/* $("#btnSearch").click(function() {
+			$("#btnSearch").click(function() {
 					table.ajax.reload();
-			}); */
+			}); 
 			
-		},
+		}, 
 		methods:{
 			chaxun:function(){
 				table.ajax.reload();
 			},
 			importExcel:function(){
-				alert("444");
+				var _this = this;
+				_this.materialfiled1 = $("#materialfiled1").val();
+	 			if(_this.materialfiled1==""||_this.materialfiled1==null){
+						rayDialog("请先选择要上传的Excel文件！");
+				}else{
+					rayDialogConfirm("确定要上传吗？",function(){
+						$.ajax({
+							url:ctx+"/agrProduction/import",
+							type:"POST",
+							data:
+							{
+								fileId:_this.materialfiled1
+							},
+							success:function(data){
+								if(data.hasError == "Y" ){
+									rayDialog(data.errorMsg+"或填入信息有误！");
+								}else{
+									rayDialog("导入成功！",function(){
+										actCancel($('#form'), ctx + "/agrProduction");												
+									});
+								}
+							} 
+						}); 
+					});
+				}
+			},
+			fncDetail:function(){
+				actSubmit($('#form'), ctx + "/vendorDrugDict/detailInfo?vendorDrugDictId="+vendorDrugDictId);
+			},
+			fncExcel:function(){
+				actSubmit($('#form'), ctx+"/vendorDrugDict/querySupplierDrugDictExcel");
 			}
+			
 		},
 		
 	});

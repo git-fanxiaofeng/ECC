@@ -27,6 +27,10 @@
           FROM	tb_ecc_agr_production da
 	</select>
 	
+	<delete id="deletePro">
+		delete from tb_ecc_agr_production
+	</delete>
+	
 	<!-- 查询供应商药品字典列表 -->
 	<select id="agrWaterConList" resultType="rdata" >
 		SELECT	rowNum									"num",

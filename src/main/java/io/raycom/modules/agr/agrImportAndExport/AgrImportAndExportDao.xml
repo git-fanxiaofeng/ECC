@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.raycom.modules.agr.agrImportAndExport.AgrImportAndExportDao">
+
+	<!-- 查询列表展示 -->
+	<select id="queryAgrImportAndExport"  resultType="rdata"  parameterType="page">
+		select 	rowNum "num",v.*  from (select  *
+		  from （select  	
+		  							t.country_code   "countryCode",
+		  						 	t.country_name  "countryName",
+		  						 	t.product_type,
+		  						 	t.imports,
+		  						 	t.exports 
+		           from tb_ecc_agr_importandexport t
+		           where 1=1
+		           <if test="param.countryCode!='' and param.countryCode!=null">
+					 and t.country_code = trim(#{param.countryCode})
+					</if>
+					<if test="param.countryName!='' and param.countryName!=null ">
+					 and t.country_name = trim(#{param.countryName})
+					</if>
+		           ） 
+		           pivot(
+		            <if test = "param.dataType =='01'">
+					    max(imports) 
+					 </if>
+					 <if test = "param.dataType =='02'">
+					    max(exports) 
+					 </if>
+					    for product_type in (   
+					        '茶（吨） '  		"tea",
+					        '豆类（吨）'  		"beans",
+					        '坚果类（吨）' 	"nuts",
+					        '咖啡（吨） ' 		"coffee",
+					        '可可（吨） ' 		"cocoa",
+					        '麻类（吨） ' 		"hemp",
+					        '棉花（吨） ' 		"cotton",
+					        '其他谷物（吨） ' 	"otherGrains",
+					        '蔬果（吨） ' 		"vegetables",
+					        '薯类（吨） ' 		"potato",
+					        '水稻（吨） ' 		"rice",
+					        '饲草（吨） ' 		"grass",
+					        '饲料（吨） ' 		"feed",
+					        '糖类产品（吨） ' 	"sugarPro",
+					        '糖料作物（吨） ' 	"sugar",
+					        '玉米（吨） ' 			"corn"
+					    )
+					  )
+		  ) v
+	</select>
+	
+	<delete id="deletePro">
+		delete from tb_ecc_agr_production
+	</delete>
+	
+	<!-- 插入农业进出口管理表 -->
+	<insert id="updateExcelagrPro" parameterType="rdata">
+		INSERT INTO tb_ecc_agr_importandexport
+				(
+				country_code,
+				country_name,
+				product_type,
+				imports
+				)
+			values
+				(
+				#{countryCode},
+				#{countryName},
+				#{productType},
+				#{imports}
+				)	
+	</insert>
+</mapper>
