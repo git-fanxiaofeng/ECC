@@ -54,8 +54,9 @@ public class AgrImportAndExportService extends BaseService{
 			RData purchaseData = mdata.getRData(i);
 			wdata.set("countryCode", purchaseData.getString("countryCode"));
 			wdata.set("countryName", purchaseData.getString("countryName"));
-			wdata.set("productType", purchaseData.getString("type"));
-			wdata.set("imports", purchaseData.getString("imports"));
+			wdata.set("productType", purchaseData.getString("productType"));
+			wdata.set("cdata", purchaseData.getString("cdata"));
+			wdata.set("dataType", rdata.getString("dataType"));
 			agrProductionDao.updateExcelagrPro(wdata);
 		}
 		return rdata;

@@ -9,8 +9,12 @@
 		  							t.country_code   "countryCode",
 		  						 	t.country_name  "countryName",
 		  						 	t.product_type,
-		  						 	t.imports,
-		  						 	t.exports 
+		  						 	<if test = "param.dataType =='01'">
+									    t.imports
+									 </if>
+									 <if test = "param.dataType =='02'">
+									   t.exports
+									 </if>
 		           from tb_ecc_agr_importandexport t
 		           where 1=1
 		           <if test="param.countryCode!='' and param.countryCode!=null">
@@ -55,19 +59,41 @@
 	
 	<!-- 插入农业进出口管理表 -->
 	<insert id="updateExcelagrPro" parameterType="rdata">
-		INSERT INTO tb_ecc_agr_importandexport
-				(
-				country_code,
-				country_name,
-				product_type,
-				imports
-				)
-			values
-				(
-				#{countryCode},
-				#{countryName},
-				#{productType},
-				#{imports}
-				)	
+			MERGE INTO tb_ecc_agr_importandexport i
+			USING	(select 1 from dual) a
+			ON(  i.country_code = #{countryCode} 
+					and i.country_name = #{countryName}
+					and i.product_type = #{productType})
+			WHEN MATCHED THEN
+			UPDATE SET   
+							<if test = "dataType =='01'">
+					    		imports=#{cdata}
+					 		</if>
+					 		<if test = "dataType =='02'">
+					    		exports=#{cdata}
+					    	</if>	
+			where      i.country_code = #{countryCode}
+			and		  i.country_name = #{countryName}
+			and		  i.product_type =#{productType}
+			WHEN NOT MATCHED THEN
+			INSERT	
+						(
+						country_code,
+						country_name,
+						product_type,
+					<if test = "dataType =='01'">
+					    imports
+					 </if>
+					 <if test = "dataType =='02'">
+					    exports
+					 </if>
+						)
+					values
+						(
+						#{countryCode},
+						#{countryName},
+						#{productType},
+						#{cdata}
+						)	
 	</insert>
 </mapper>

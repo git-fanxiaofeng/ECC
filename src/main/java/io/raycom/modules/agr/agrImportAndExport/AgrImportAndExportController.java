@@ -84,7 +84,7 @@ public class AgrImportAndExportController extends BaseController{
             				mdata.add("productType", typeList.get(i-2));
             				mdata.add("countryCode", list.get(0));
                     		mdata.add("countryName", list.get(1));
-                    		mdata.add("imports", list.get(i));
+                    		mdata.add("cdata", list.get(i));
             			}
              		}
 //        		}else{
