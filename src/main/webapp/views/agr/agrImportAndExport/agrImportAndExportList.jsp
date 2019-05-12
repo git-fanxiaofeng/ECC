@@ -150,14 +150,16 @@
 							type:"POST",
 							data:
 							{
-								fileId:_this.materialfiled1
+								fileId:_this.materialfiled1,
+								dataType:$('#dataType option:selected').val()
 							},
 							success:function(data){
 								if(data.hasError == "Y" ){
 									rayDialog(data.errorMsg+"或填入信息有误！");
 								}else{
 									rayDialog("导入成功！",function(){
-										actCancel($('#form'), ctx + "/agrImportAndExport");												
+										layer.close(layer.index);
+										table.ajax.reload();												
 									});
 								}
 							} 
