@@ -20,6 +20,8 @@
 <link href="${ctxStatic}/plugins/select2/select2.css" rel="stylesheet">
 <link href="${ctxStatic}/css/raycom.css" rel="stylesheet">
 <link href="${ctxStatic}/plugins/layui-v2.4.5/css/layui.css" rel="stylesheet">
+<link href="${ctxStatic}/plugins/openlayer/ol.css rel="stylesheet">
+
 <script type="text/javascript">var ctx = '${ctx}', ctxFront = '${ctxFront}', ctxStatic='${ctxStatic}', ctxCdn='${fns:getConfig("cdn.url")}';</script>
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -34,6 +36,8 @@
 <script src="${ctxStatic}/plugins/bootstrap/bootstrap.min.js"></script>
 <script src="${ctxStatic}/plugins/justified-gallery/jquery.justifiedGallery.min.js"></script>
 <script src="${ctxStatic}/plugins/select2/select2.min.js"></script>
+
+<script src="${ctxStatic}/plugins/openlayer/ol.js"></script>
 
 <script src="${ctxStatic}/plugins/datatables/jquery.dataTables.js"></script>
 <script src="${ctxStatic}/plugins/datatables/ZeroClipboard.js"></script>
@@ -62,6 +66,8 @@
 <script src="${ctxStatic}/plugins/tinymce/jquery.tinymce.min.js"></script>
 <script src="${ctxStatic}/plugins/jquery-ui-timepicker-addon/jquery-ui-timepicker-addon.min.js"></script>
 <script src="${ctxStatic}/plugins/jquery-ui-timepicker-addon/i18n/jquery-ui-timepicker-zh-CN.js"></script>
+
+
 
 <script type="text/javascript" src="${ctxStatic}/plugins/layui/layui.all.js"></script>
 <script type="text/javascript" src="${ctxStatic}/plugins/h-ui/js/H-ui.min.js"></script>

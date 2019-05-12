@@ -253,7 +253,7 @@
 		</div>
 		<!--Start Content id="content"-->
 		<div id="content"  class="col-xs-12 col-sm-10 contet-width" style="padding-left: 0px; padding-right: 0px; ">
-			<iframe id="mainFrame" name="mainFrame" src="${ctx}/chart"   width="100%" onload="reinitIframe()" ></iframe>
+			<iframe id="mainFrame" name="mainFrame" src="${ctx}/openlayer"   width="100%" onload="reinitIframe()" ></iframe>
 		</div>
 	</div>
 </div>
