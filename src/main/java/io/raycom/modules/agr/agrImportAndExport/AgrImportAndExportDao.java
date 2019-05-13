@@ -30,7 +30,7 @@ public interface AgrImportAndExportDao{
 	
 	RData inspectDrugDict(RData rdata);
 	
-	ArrayList<RData> vendorDrugDictListExcle(RData rdata);
+	ArrayList<RData> queryExport(RData rdata);
 	
 	RData selectVendorDrugDict(RData rdata);
 	

@@ -1,7 +1,9 @@
 package io.raycom.modules.agr.agrImportAndExport;
 
 import io.raycom.core.collection.RData;
+import io.raycom.core.collection.RMultiData;
 import io.raycom.tools.file.AttachmentUtils;
+import io.raycom.utils.excel.ExcelExportor;
 import io.raycom.web.bean.Page;
 import io.raycom.web.support.mvc.controller.BaseController;
 
@@ -15,6 +17,7 @@ import jxl.Workbook;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -106,4 +109,34 @@ public class AgrImportAndExportController extends BaseController{
         rdata.set("hasError", "N");
 		return rdata;
     }
+	
+	/**
+	 * 导出供应商药品字典Excel
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "excel")
+	public String importExcel(Model model){
+		RMultiData result =agrImportAndExportService.queryExport(rdata);
+		ExcelExportor exportor = new ExcelExportor("excel.xls", result,model);
+		exportor.addColumn("countryCode", "国家编码");
+		exportor.addColumn("countryName", "国家名称");
+		exportor.addColumn("tea", "茶（吨）");
+		exportor.addColumn("beans", "豆类（吨）");
+		exportor.addColumn("nuts", "坚果类（吨）");
+		exportor.addColumn("coffee", "咖啡（吨）");
+		exportor.addColumn("cocoa", "可可（吨）");
+		exportor.addColumn("hemp", "麻类（吨）");
+		exportor.addColumn("cotton", "棉花（吨）");
+		exportor.addColumn("otherGrains", "其他谷物（吨）");
+		exportor.addColumn("vegetables", "蔬果（吨）");
+		exportor.addColumn("potato", "薯类（吨）");
+		exportor.addColumn("rice", "水稻（吨）");
+		exportor.addColumn("grass", "饲草（吨）");
+		exportor.addColumn("feed", "饲料（吨）");
+		exportor.addColumn("sugarPro", "糖类产品（吨）");
+		exportor.addColumn("sugar", "糖料作物（吨）");
+		exportor.addColumn("corn", "玉米（吨） ");
+		return EXCEL;
+	}
 }

@@ -33,10 +33,10 @@ public class AgrImportAndExportService extends BaseService{
 		page.setData(agrProductionDao.queryAgrImportAndExport(page));
 	}
 	
-	//导出药品Excle
-	public RMultiData supplierdrugDictListExcle(RData rdata){
+	//导出Excle
+	public RMultiData queryExport(RData rdata){
 		RMultiData rMultiData = new RMultiData();
-		ArrayList<RData> list =agrProductionDao.vendorDrugDictListExcle(rdata);
+		ArrayList<RData> list =agrProductionDao.queryExport(rdata);
 		for(int i=0;i<list.size();i++){
 			rMultiData.addRData(list.get(i));
 		}

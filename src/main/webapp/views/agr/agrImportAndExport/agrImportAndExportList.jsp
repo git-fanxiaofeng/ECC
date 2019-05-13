@@ -56,7 +56,7 @@
 			<button v-on:click="importExcel" type="button" class="btn btn-default btn-xs btn-raycom">
    				批量导入
   			</button>
-			<button type="button" class="btn btn-default  btn-xs btn-raycom" onclick="fncExcel()" >
+			<button type="button" class="btn btn-default  btn-xs btn-raycom" v-on:click="fncExcel()" >
 				导出Excel
 			</button>
 		</div>
@@ -167,6 +167,9 @@
 					});
 				}
 			},
+			fncExcel:function(){
+				actSubmit($('#form'), ctx+"/agrImportAndExport/excel?+dataType="+$('#dataType option:selected').val());
+			}
 		},
 		
 	});
