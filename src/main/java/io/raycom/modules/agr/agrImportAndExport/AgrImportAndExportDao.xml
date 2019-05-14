@@ -18,12 +18,10 @@
 		           from tb_ecc_agr_importandexport t
 		           where 1=1
 		           <if test = "param.dataType =='01'">
-					 and  t.imports != null
-					 and  t.imports != ''
+					 and  t.imports is not null
 				   </if>
 				   <if test = "param.dataType =='02'">
-					 and  t.exports != null
-					 and  t.exports != ''
+					 and  t.exports is not null
 				   </if>
 		           <if test="param.countryCode!='' and param.countryCode!=null">
 					 and t.country_code = trim(#{param.countryCode})
@@ -120,6 +118,12 @@
 									 </if>
 		           from tb_ecc_agr_importandexport t
 		           where 1=1
+		            <if test = "dataType =='01'">
+					 and  t.imports is not null
+				   </if>
+				   <if test = "dataType =='02'">
+					 and  t.exports is not null
+				   </if>
 		           ） 
 		           pivot(
 		            <if test = "dataType =='01'">
