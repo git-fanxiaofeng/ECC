@@ -88,6 +88,7 @@
 </div> 
 <script src="${ctxStatic}/plugins/jquery/jquery.min.js"></script>
 <script src="${ctxStatic}/plugins/jquery/jquery.validate.min.js"></script>
+<script src="${ctxStatic}/plugins/login/canvas.js"></script>
 <script type="text/javascript" src="${ctxStatic}/plugins/layer-v3.1.1/layer.js"></script>
 <script src="${ctxStatic}/js/common/raycom-layer.js"></script>
 <script type="text/javascript">
